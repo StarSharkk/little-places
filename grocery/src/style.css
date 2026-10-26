@@ -1,0 +1,487 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap");
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #34423d;
+  background: #e8ebe5;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #a8493c;
+  outline-offset: 4px;
+}
+header {
+  height: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 4.4%;
+  border-bottom: 1px solid #cbd1c7;
+  position: relative;
+  z-index: 2;
+}
+.brand {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  font-family: serif;
+  background: #a8493c;
+  color: #ece6d6;
+  width: 38px;
+  height: 40px;
+  font-size: 25px;
+}
+.brand > div {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.brand > div > span {
+  font-size: 6px;
+  letter-spacing: 1.3px;
+  display: block;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.header-middle {
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: #727f73;
+}
+.header-middle i {
+  font-style: normal;
+  margin: 0 18px;
+  color: #9aa194;
+}
+.issue {
+  font-size: 9px;
+  letter-spacing: 1.7px;
+}
+.issue i {
+  font-style: normal;
+  font-size: 20px;
+  margin-left: 34px;
+}
+main {
+  height: calc(100svh - 198px);
+  min-height: 650px;
+  max-height: 1150px;
+  position: relative;
+}
+#scene {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+#scene canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  outline: none;
+}
+.intro {
+  position: absolute;
+  top: 12%;
+  left: 5.5%;
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  font-weight: 600;
+}
+.intro .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.eyebrow > span {
+  width: 5px;
+  height: 5px;
+  background: #a8493c;
+  border-radius: 50%;
+}
+h1 {
+  font:
+    400 clamp(42px, 4.2vw, 68px)/1.06 "DM Serif Display",
+    Georgia,
+    serif;
+  letter-spacing: -1.5px;
+  margin: 26px 0 24px;
+}
+h1 em {
+  font-weight: 400;
+  color: #9f4f40;
+}
+.description {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #7d8577;
+}
+.address {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 35px;
+  padding-top: 19px;
+  border-top: 1px solid #cbd1c7;
+  width: max-content;
+}
+.address > span {
+  writing-mode: vertical-rl;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #8c5547;
+}
+.address p {
+  font-size: 8px;
+  line-height: 2;
+  letter-spacing: 1px;
+  color: #727d70;
+}
+.scene-top {
+  position: absolute;
+  top: 27px;
+  right: 4.4%;
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  color: #7a8477;
+}
+.scene-top i {
+  font-style: normal;
+  margin: 0 15px;
+}
+.live {
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background: #768e70;
+  margin-right: 7px;
+}
+.view-label {
+  position: absolute;
+  left: 5.5%;
+  bottom: 29px;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+}
+.view-label > span {
+  color: #9f4f40;
+  margin-right: 12px;
+}
+.view-label small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.3px;
+  color: #899081;
+  margin: 9px 0 0 37px;
+}
+.main-controls {
+  position: absolute;
+  right: 4.4%;
+  bottom: 25px;
+  display: flex;
+  gap: 10px;
+}
+.main-controls button {
+  font-size: 10px;
+  border: 1px solid #b7c0b2;
+  padding: 11px 16px;
+  background: #e8ebe5e6;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+.main-controls button:hover,
+.main-controls button[aria-pressed="true"] {
+  background: #d8dfd3;
+}
+.main-controls span {
+  margin-left: 22px;
+  font-size: 15px;
+}
+footer {
+  height: 99px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 4.4%;
+  border-top: 1px solid #cbd1c7;
+}
+.view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: auto;
+}
+.view-tabs > .eyebrow {
+  margin-right: 17px;
+  color: #737f70;
+}
+.view-tabs button {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  font-size: 10px;
+  padding: 9px 13px;
+  color: #7a8576;
+}
+.view-tabs button[aria-pressed="true"] {
+  border-color: #9fae9d;
+  background: #dce2d7;
+  color: #34423d;
+}
+.gesture {
+  font-size: 11px;
+  color: #788575;
+  margin-right: 21px;
+}
+.gesture span {
+  margin-left: 8px;
+}
+.gesture i {
+  font-style: normal;
+  margin: 0 8px;
+}
+.zoom {
+  display: flex;
+  border: 1px solid #b9c3b3;
+  border-radius: 4px;
+  align-items: center;
+}
+.zoom button,
+#reset {
+  background: none;
+  border: none;
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+}
+.zoom output {
+  font-size: 10px;
+  min-width: 42px;
+  text-align: center;
+}
+#reset {
+  font-size: 23px;
+  color: #697a68;
+}
+#hint {
+  position: fixed;
+  pointer-events: none;
+  display: none;
+  z-index: 3;
+  font-size: 10px;
+  background: #34423d;
+  color: #e8ebe5;
+  padding: 8px 12px;
+  border-radius: 3px;
+}
+.annotations {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.annotations.visible {
+  display: block;
+}
+.annotations > div {
+  position: absolute;
+  transform: translate(-15px, -50%);
+  font-size: 9px;
+  background: #e8ebe5e8;
+  border: 1px solid #9ca891;
+  border-radius: 20px;
+  padding: 7px 10px;
+  white-space: nowrap;
+  color: #a8493c;
+}
+.annotations > div > span {
+  font-size: 7px;
+  letter-spacing: 1px;
+  margin-left: 7px;
+  color: #4d5d4a;
+}
+@media (max-width: 1100px) {
+  .header-middle,
+  .gesture {
+    display: none;
+  }
+  .intro {
+    left: 4.5%;
+  }
+  h1 {
+    font-size: 45px;
+  }
+  .description {
+    font-size: 10px;
+  }
+  .view-tabs > .eyebrow {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  header {
+    height: 76px;
+    margin: 0 6%;
+  }
+  .brand > div {
+    font-size: 14px;
+  }
+  .brand > div > span {
+    font-size: 5px;
+  }
+  .logo {
+    width: 32px;
+    height: 33px;
+    font-size: 21px;
+  }
+  .issue {
+    font-size: 7px;
+  }
+  .issue i {
+    margin-left: 14px;
+  }
+  main {
+    height: calc(100svh - 185px);
+    min-height: 625px;
+  }
+  .intro {
+    left: 7%;
+    top: 24px;
+  }
+  .intro .eyebrow {
+    font-size: 6px;
+    letter-spacing: 1.4px;
+  }
+  h1 {
+    font-size: 38px;
+    line-height: 1.05;
+    margin: 16px 0 12px;
+  }
+  .description,
+  .address,
+  .scene-top {
+    display: none;
+  }
+  .view-label {
+    bottom: 77px;
+    left: 7%;
+    font-size: 7px;
+  }
+  .view-label small {
+    font-size: 8px;
+  }
+  .main-controls {
+    left: 7%;
+    right: 7%;
+    bottom: 22px;
+    justify-content: space-between;
+  }
+  .main-controls button {
+    font-size: 9px;
+    padding: 9px 12px;
+  }
+  .main-controls span {
+    margin-left: 18px;
+  }
+  footer {
+    height: 109px;
+    margin: 0 7%;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+  .view-tabs {
+    width: 100%;
+    gap: 5px;
+  }
+  .view-tabs button {
+    font-size: 9px;
+    padding: 7px 11px;
+  }
+  .zoom {
+    margin-left: auto;
+  }
+  .zoom button {
+    width: 25px;
+    height: 27px;
+  }
+  .zoom output {
+    font-size: 9px;
+    min-width: 34px;
+  }
+  #reset {
+    height: 27px;
+    font-size: 21px;
+  }
+  .annotations > div > span {
+    font-size: 6px;
+    letter-spacing: 0.2px;
+  }
+}
+
+/* Give the miniature its own space below the editorial title on narrow screens. */
+@media (max-width: 650px) {
+  #scene { inset: 185px 0 112px; }
+  .intro { z-index: 1; }
+  .annotations > div { max-width: calc(100vw - 22px); }
+  .annotations > div > span { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .main-controls button { transition: none; }
+}
+
+/* Sakura collection art direction: cream paper, candy colours, ink outlines. */
+:root { color: #252525; background: #F7F3E9; }
+header, footer { border-color: #D8D4C9; }
+.logo { background: #EF745F; color: #F7F3E9; }
+h1 em, .address > span, .view-label > span { color: #A65F48; }
+.eyebrow > span { background: #EF745F; }
+.header-middle, .description, .address p, .scene-top, .view-label small, .gesture { color: #858579; }
+.address { border-color: #D8D4C9; }
+.main-controls button { background: #F7F3E9ED; border-color: #C8C7BB; border-radius: 30px; }
+.main-controls button:hover, .main-controls button[aria-pressed="true"] { background: #EEE6D5; }
+.view-tabs button { color: #808173; border-radius: 24px; }
+.view-tabs button[aria-pressed="true"] { background: #F1E2BF; color: #252525; border-color: #C6B88D; }
+.zoom { border-color: #C8C7BB; border-radius: 26px; }
+#reset { color: #727469; }
+#hint { background: #252525; color: #F7F3E9; }
+.annotations > div { color: #BE5145; background: #F7F3E9F2; border-color: #BDB8AA; }
+.annotations > div > span { color: #52564B; }
+.palette-picker { display: flex; align-items: center; gap: 15px; padding-left: 18px; border-left: 1px solid #D8D4C9; }
+.colour-label { color: #818274; font-size: 7px; }
+#palettes { display: flex; gap: 11px; }
+.swatch { width: 23px; height: 23px; padding: 0; border: 1px solid #252525; border-radius: 50%; position: relative; transition: transform .18s; }
+.swatch:hover { transform: translateY(-2px); }
+.swatch[aria-pressed="true"]::after { content: ''; position: absolute; inset: -4px; border: 1px solid #252525; border-radius: 50%; }
+@media (max-width: 1450px) { .gesture { display: none; } }
+@media (max-width: 650px) {
+  .palette-picker { gap: 0; padding-left: 0; border-left: 0; margin-right: auto; }
+  .colour-label { display: none; }
+  #palettes { gap: 10px; }
+  .swatch { width: 22px; height: 22px; }
+}

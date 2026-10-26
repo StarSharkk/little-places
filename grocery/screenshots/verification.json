@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "initial": {
+    "orthographic": true,
+    "azimuth": 45,
+    "elevation": 32.47251629973425,
+    "calls": 36,
+    "triangles": 100166,
+    "textures": 2,
+    "atlasRegions": 28
+  },
+  "layout": {
+    "posterCount": 5,
+    "posterStockIntersections": 0,
+    "minimumPosterClearance": 0.08599999517947454,
+    "posterWallClearance": 0.020000000894069725,
+    "capsuleMachineCount": 4
+  },
+  "themes": [
+    "Butter yellow",
+    "Pistachio",
+    "Rose milk",
+    "Blue hour",
+    "Terracotta"
+  ],
+  "consoleErrors": [],
+  "checks": [
+    "orthographic framing",
+    "four capsule machines",
+    "poster-stock collision clearance",
+    "shutter raycast and animation",
+    "annotations",
+    "five synchronised geometry and atlas palettes",
+    "front and side views",
+    "wheel zoom",
+    "drag rotation",
+    "reset",
+    "render-on-demand",
+    "mobile layout",
+    "mobile shutter button"
+  ],
+  "extraChecks": [
+    "mobile annotations within viewport"
+  ],
+  "checkedAt": "2026-10-26T12:45:35.749Z",
+  "viewports": [
+    "1440 × 1000",
+    "390 × 844"
+  ],
+  "browser": "Chrome via Playwright"
+}

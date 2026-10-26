@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F7F3E9" />
+    <title>Sakura Café — A little corner of everyday</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="./" aria-label="Sakura atelier home"
+        ><span class="brand-mark">✳</span> SAKURA<span class="brand-small"
+          >MINIATURE ATELIER</span
+        ></a
+      >
+      <div class="edition">PLACES TO PAUSE <span>—</span> No. 001</div>
+      <button id="menu-button" class="text-button">
+        The café menu <span>↗</span>
+      </button>
+    </header>
+    <main>
+      <div class="intro">
+        <div class="eyebrow"><span></span> THE CORNER COLLECTION</div>
+        <h1>A little corner<br />of <em>everyday.</em></h1>
+        <p>
+          Fresh coffee. Slow mornings.<br />A small world, made to be explored.
+        </p>
+        <div class="intro-rule"></div>
+        <span class="location">SAKURA CAFÉ &nbsp; / &nbsp; EST. 1986</span>
+      </div>
+      <div
+        id="scene"
+        aria-label="Interactive three-dimensional European corner café. Drag to rotate, scroll to zoom, click the door or café sign."
+      ></div>
+      <div class="scene-note">
+        <span class="live-dot"></span> A SMALL PLACE TO STAY AWHILE
+      </div>
+      <div id="tooltip" role="status"></div>
+      <div class="object-caption">
+        <span>01 /</span> SAKURA CAFÉ<small
+          >European corner house · Two storeys</small
+        >
+      </div>
+      <div class="scene-tools">
+        <button id="door-button" aria-pressed="false">
+          Open the door <span>↗</span></button
+        ><button id="reset">Reset view <span>↺</span></button>
+      </div>
+    </main>
+    <footer>
+      <div class="palette-section">
+        <span class="eyebrow">MAKE IT YOURS</span>
+        <div
+          id="palettes"
+          role="group"
+          aria-label="Building colour palette"
+        ></div>
+        <span id="palette-name">Butter yellow</span>
+      </div>
+      <div class="gesture">
+        <span>↔</span> Drag to explore <i>·</i> Scroll to zoom
+      </div>
+      <div class="zoom">
+        <button id="zoom-out" aria-label="Zoom out">−</button
+        ><output id="zoom-value">100%</output
+        ><button id="zoom-in" aria-label="Zoom in">+</button>
+      </div>
+    </footer>
+    <dialog id="menu">
+      <button class="close" aria-label="Close menu">×</button>
+      <div class="menu-flower">✳</div>
+      <span class="eyebrow">FRESHLY BREWED, SLOWLY ENJOYED</span>
+      <h2>Sakura Café</h2>
+      <p class="menu-sub">A little something lovely.</p>
+      <div class="menu-items">
+        <div>
+          <span>Espresso<small>A small, perfect beginning</small></span
+          ><b>$4</b>
+        </div>
+        <div>
+          <span>Flat white<small>Velvety milk, our house blend</small></span
+          ><b>$5</b>
+        </div>
+        <div>
+          <span>Sakura latte<small>A gentle hint of cherry blossom</small></span
+          ><b>$6</b>
+        </div>
+        <div>
+          <span
+            >Butter croissant<small
+              >Golden, flaky, baked every morning</small
+            ></span
+          ><b>$5</b>
+        </div>
+        <div>
+          <span
+            >Strawberry shortcake<small>A slice of the good things</small></span
+          ><b>$8</b>
+        </div>
+      </div>
+      <p class="menu-foot">
+        OPEN DAILY &nbsp; 7:00 — 17:00<br />Come as you are. Stay a little
+        longer.
+      </p>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

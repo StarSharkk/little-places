@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#F7F3E9" />
+    <title>Machi — Yamada Grocery</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header>
+      <a href="./" class="brand"
+        ><span class="logo">町</span>
+        <div>MACHI<span>SMALL STORIES, IN THREE DIMENSIONS</span></div></a
+      >
+      <div class="header-middle">
+        街の記憶 <i>／</i> MEMORIES OF A NEIGHBOURHOOD
+      </div>
+      <span class="issue">VOL. 02 <i>↗</i></span>
+    </header>
+    <main>
+      <div
+        id="scene"
+        aria-label="Interactive 3D Japanese three-storey corner grocery store. Drag to rotate and scroll to zoom."
+      ></div>
+      <section class="intro">
+        <p class="eyebrow"><span></span> THE EVERYDAY, IN MINIATURE</p>
+        <h1>A corner.<br />A thousand<br /><em>little stories.</em></h1>
+        <p class="description">
+          A familiar red awning. The hum of a vending<br />machine. A
+          neighbourhood that feels like home.
+        </p>
+        <div class="address">
+          <span>山田雑貨店</span>
+          <p>YAMADA GROCERY<br />HANAMI-CHO, TOKYO · EST. 1968</p>
+        </div>
+      </section>
+      <div class="scene-top">
+        <span class="live"></span> REAL-TIME 3D <i>／</i> 01 BUILDING
+      </div>
+      <div class="annotations" id="annotations" aria-hidden="true">
+        <div data-anchor="roof">01 <span>ROOFTOP UTILITIES</span></div>
+        <div data-anchor="shop">02 <span>山田雑貨店 · YAMADA</span></div>
+        <div data-anchor="drinks">
+          03 <span>CAPSULE TOYS & EVERYDAY FINDS</span>
+        </div>
+      </div>
+      <div class="view-label">
+        <span>01 —</span> YAMADA GROCERY<small
+          >Japanese urban diorama / Three storeys</small
+        >
+      </div>
+      <div class="main-controls">
+        <button id="shutter" aria-pressed="false">
+          Open the shop <span>↗</span></button
+        ><button id="details" aria-pressed="false">
+          Details <span>＋</span>
+        </button>
+      </div>
+      <div id="hint" role="status"></div>
+    </main>
+    <footer>
+      <div class="view-tabs" role="group" aria-label="Camera views">
+        <span class="eyebrow">PERSPECTIVES</span
+        ><button data-view="iso" aria-pressed="true">Isometric</button
+        ><button data-view="front" aria-pressed="false">Street front</button
+        ><button data-view="side" aria-pressed="false">Gacha corner</button>
+      </div>
+      <div class="palette-picker"><span class="eyebrow colour-label">COLOUR</span><div id="palettes" role="group" aria-label="Building colours"></div></div>
+      <div class="gesture">
+        ↔ <span>Drag to explore</span> <i>·</i> Scroll to zoom
+      </div>
+      <div class="zoom">
+        <button id="out" aria-label="Zoom out">−</button
+        ><output id="zoom-value">100%</output
+        ><button id="in" aria-label="Zoom in">+</button>
+      </div>
+      <button id="reset" aria-label="Reset view">↺</button>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

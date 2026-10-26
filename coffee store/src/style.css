@@ -1,0 +1,490 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap");
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #252525;
+  background: #f7f3e9;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #be5948;
+  outline-offset: 5px;
+}
+header {
+  height: 101px;
+  margin: 0 4.3%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d8d4c9;
+  position: relative;
+  z-index: 2;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-decoration: none;
+  color: inherit;
+  gap: 11px;
+}
+.brand-mark {
+  font-size: 43px;
+  font-weight: 400;
+  line-height: 1;
+}
+.brand-small {
+  border-left: 1px solid #bfbcb2;
+  padding-left: 14px;
+  margin-left: 8px;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  line-height: 1.7;
+  width: 87px;
+}
+.edition {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  color: #7b7c70;
+}
+.edition span {
+  margin: 0 16px;
+}
+.text-button {
+  border: 0;
+  background: none;
+  font-size: 12px;
+  padding: 10px 0;
+}
+.text-button span {
+  margin-left: 21px;
+  font-size: 18px;
+}
+main {
+  position: relative;
+  height: calc(100svh - 215px);
+  min-height: 570px;
+  max-height: 1100px;
+}
+#scene {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+#scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: grab;
+}
+.intro {
+  position: absolute;
+  top: 11%;
+  left: 5%;
+  z-index: 1;
+  pointer-events: none;
+}
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.intro .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.eyebrow span {
+  width: 5px;
+  height: 5px;
+  background: #cb7258;
+  border-radius: 50%;
+}
+h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(35px, 3.7vw, 60px);
+  letter-spacing: -2px;
+  line-height: 1.12;
+  margin: 22px 0;
+}
+h1 em {
+  font-weight: 500;
+  color: #a65f48;
+}
+.intro p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #7a7b71;
+  margin: 0;
+}
+.intro-rule {
+  width: 32px;
+  height: 1px;
+  background: #b8b7a9;
+  margin: 25px 0 17px;
+}
+.location {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #737669;
+}
+.scene-note {
+  position: absolute;
+  right: 4.3%;
+  top: 34px;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  color: #86877b;
+}
+.live-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #7c9d83;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+.object-caption {
+  position: absolute;
+  bottom: 29px;
+  left: 5%;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+}
+.object-caption > span {
+  margin-right: 12px;
+  color: #a65f48;
+}
+.object-caption small {
+  display: block;
+  margin: 9px 0 0 36px;
+  font-size: 10px;
+  letter-spacing: 0.2px;
+  color: #88897d;
+}
+.scene-tools {
+  position: absolute;
+  bottom: 28px;
+  right: 4.3%;
+  display: flex;
+  gap: 9px;
+}
+.scene-tools button {
+  background: #f7f3e9e0;
+  border: 1px solid #c8c7bb;
+  border-radius: 30px;
+  padding: 11px 17px;
+  font-size: 11px;
+  transition: background 0.2s;
+}
+.scene-tools button:hover {
+  background: #ede5d4;
+}
+.scene-tools span {
+  margin-left: 15px;
+  font-size: 16px;
+}
+footer {
+  height: 114px;
+  margin: 0 4.3%;
+  border-top: 1px solid #d8d4c9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.palette-section {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+}
+#palettes {
+  display: flex;
+  gap: 12px;
+}
+.swatch {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  position: relative;
+  padding: 0;
+  transition: transform 0.2s;
+}
+.swatch:hover {
+  transform: translateY(-3px);
+}
+.swatch[aria-pressed="true"]:after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid #252525;
+  border-radius: 50%;
+}
+#palette-name {
+  font-size: 10px;
+  color: #7a7b70;
+  min-width: 80px;
+}
+.gesture {
+  font-size: 10px;
+  color: #838477;
+}
+.gesture > span {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.gesture i {
+  font-style: normal;
+  margin: 0 10px;
+}
+.zoom {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc9bd;
+  border-radius: 30px;
+  padding: 3px 6px;
+}
+.zoom button {
+  border: 0;
+  background: none;
+  width: 29px;
+  height: 31px;
+  font-size: 20px;
+}
+.zoom output {
+  font-size: 11px;
+  min-width: 48px;
+  text-align: center;
+}
+#tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #252525;
+  color: #f7f3e9;
+  padding: 7px 11px;
+  border-radius: 4px;
+  font-size: 11px;
+  display: none;
+  z-index: 3;
+}
+dialog {
+  background: #f7f3e9;
+  border: 1px solid #252525;
+  border-radius: 4px;
+  padding: 35px 44px;
+  width: min(440px, 90vw);
+  box-shadow: 10px 10px 0 #25252512;
+  color: #252525;
+}
+dialog::backdrop {
+  background: #25252538;
+  backdrop-filter: blur(4px);
+}
+.close {
+  position: absolute;
+  right: 17px;
+  top: 12px;
+  font-size: 25px;
+  background: none;
+  border: 0;
+}
+.menu-flower {
+  font-size: 44px;
+  color: #a65f48;
+  text-align: center;
+  margin-bottom: 17px;
+}
+dialog > .eyebrow {
+  display: block;
+  text-align: center;
+  font-size: 7px;
+}
+h2 {
+  font:
+    500 38px "Playfair Display",
+    Georgia,
+    serif;
+  text-align: center;
+  margin: 12px 0;
+}
+.menu-sub {
+  text-align: center;
+  color: #8e8679;
+  font:
+    italic 15px Georgia,
+    serif;
+}
+.menu-items {
+  margin: 25px 0;
+  border-top: 1px solid #d8d4c9;
+}
+.menu-items > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #dedacf;
+  font-size: 13px;
+}
+.menu-items small {
+  display: block;
+  font-size: 9px;
+  color: #8a887c;
+  margin-top: 5px;
+}
+.menu-items b {
+  font-weight: 400;
+}
+.menu-foot {
+  text-align: center;
+  font-size: 9px;
+  line-height: 2.1;
+  color: #838477;
+}
+@media (min-width: 1500px) {
+  .intro {
+    left: 7%;
+  }
+}
+@media (max-width: 1000px) {
+  .brand-small,
+  .edition {
+    display: none;
+  }
+  .intro h1 {
+    font-size: 36px;
+  }
+  .intro p {
+    font-size: 10px;
+  }
+  .gesture {
+    display: none;
+  }
+  .palette-section {
+    gap: 17px;
+  }
+  .intro {
+    top: 7%;
+  }
+}
+@media (max-width: 650px) {
+  header {
+    height: 75px;
+    margin: 0 6%;
+  }
+  .brand {
+    font-size: 14px;
+  }
+  .brand-mark {
+    font-size: 34px;
+  }
+  .text-button {
+    font-size: 10px;
+  }
+  main {
+    height: calc(100svh - 195px);
+    min-height: 580px;
+  }
+  .intro {
+    left: 7%;
+    top: 24px;
+  }
+  .intro h1 {
+    font-size: 34px;
+    margin: 13px 0 8px;
+    letter-spacing: -1px;
+  }
+  .intro p {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+  .intro-rule,
+  .location,
+  .scene-note {
+    display: none;
+  }
+  .intro .eyebrow {
+    font-size: 7px;
+    letter-spacing: 1.3px;
+  }
+  .object-caption {
+    bottom: 73px;
+    left: 7%;
+    font-size: 8px;
+  }
+  .object-caption small {
+    font-size: 8px;
+  }
+  .scene-tools {
+    bottom: 17px;
+    left: 7%;
+    right: 7%;
+    justify-content: space-between;
+  }
+  .scene-tools button {
+    font-size: 10px;
+    padding: 9px 13px;
+  }
+  footer {
+    height: 120px;
+    margin: 0 7%;
+    position: relative;
+    align-items: center;
+  }
+  .palette-section {
+    gap: 14px;
+    flex-wrap: wrap;
+    max-width: 240px;
+  }
+  .palette-section > .eyebrow {
+    width: 100%;
+    font-size: 8px;
+  }
+  #palettes {
+    gap: 13px;
+  }
+  .swatch {
+    width: 25px;
+    height: 25px;
+  }
+  #palette-name {
+    font-size: 8px;
+    position: absolute;
+    top: 23px;
+    left: 100px;
+  }
+  .zoom {
+    margin-top: 22px;
+    padding: 2px;
+  }
+  .zoom output {
+    min-width: 34px;
+    font-size: 10px;
+  }
+  .zoom button {
+    width: 23px;
+  }
+  dialog {
+    padding: 30px;
+  }
+}
