@@ -1,3 +1,5 @@
+<p align="center"><img src="series/public/logo.svg" alt="Little Places — a building collection" width="320"></p>
+
 # Little Places · 建筑小集
 
 An interactive Three.js collection of six little places: **Sakura Café**, **Yamada Grocery**, **Bonjour Bakery**, **Hanaya Flowers**, **Sakura Sweets** and **The Little Bookshop**. All six buildings are real 3D models, displayed with an orthographic camera, illustrated outlines and a warm, limited colour palette.
