@@ -2,11 +2,11 @@
 /* Reserve a calm caption/control strip so the pavement never sits under buttons. */
 #scene { top:18px; bottom:76px; }
 @media (max-width:650px) {
-  #exhibition[data-mode="collection"] { height:1660px; }
+  #exhibition[data-mode="collection"] { height:1990px; }
   #exhibition[data-mode="collection"] #scene { bottom:100px; }
 }
 @media (max-width:650px) {
-  #exhibition[data-mode="collection"] { height:1660px; }
+  #exhibition[data-mode="collection"] { height:1990px; }
   #exhibition[data-mode="collection"] .building-captions small { display:none; }
 }
 

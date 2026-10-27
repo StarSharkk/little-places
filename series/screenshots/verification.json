@@ -1,14 +1,14 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-27T11:54:37.249Z",
+  "checkedAt": "2026-10-27T13:48:36.069Z",
   "viewports": [
     "1440 × 1000",
     "390 × 844"
   ],
   "initial": {
-    "calls": 327,
-    "triangles": 1095148,
-    "textures": 23,
+    "calls": 454,
+    "triangles": 1265827,
+    "textures": 25,
     "azimuth": 45,
     "elevation": 32.47251629973425
   },

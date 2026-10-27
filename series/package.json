@@ -10,7 +10,8 @@
     "check": "node scripts/verify.mjs",
     "check:bakery": "node scripts/verify-bakery.mjs",
     "check:flowers": "node scripts/verify-flowers.mjs",
-    "check:sweets": "node scripts/verify-sweets.mjs"
+    "check:sweets": "node scripts/verify-sweets.mjs",
+    "check:books": "node scripts/verify-books.mjs"
   },
   "dependencies": {
     "three": "0.180.0"

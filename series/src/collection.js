@@ -3,6 +3,7 @@ import { createBakery } from './bakery/Bakery.js';
 import { createCafe } from '@sakura';
 import { createFlowerShop } from '@flowers';
 import { createCafe as createSweets } from '@sweets';
+import { createBookstore } from './bookstore/Bookstore.js';
 import { createBuilding } from '@yamada';
 import { finishModel, createIllustrationShadow } from '@grocery-finish';
 
@@ -11,15 +12,21 @@ export const colours=[
  {name:'Rose milk',colour:'#EFA8C4'}, {name:'Blue hour',colour:'#91B7EB'},
  {name:'Terracotta',colour:'#EF745F'},
 ];
+// series swatch order (Butter, Pistachio, Rose, Blue, Terracotta) → the dessert shop's own palettes
+const SWEETS_PALETTE=[0,2,4,3,1];
 export function createCollection(){
  const cafe=createCafe();
  const grocery=createBuilding();
  const bakery=createBakery();
  const flowers=createFlowerShop();
+ const books=createBookstore();
  // The dessert shop arrives already batched and outlined by its own kit; thinner house lines match the series.
  const sweets=createSweets({shop:'sweets',lineWeights:{outer:1.6,mid:1.2,thin:.9,hatch:.75,soft:.8,hull:1.3}});
  sweets.group.position.set(.75,0,-1.1); // centre its street corner on the wrapper
- sweets.updateShadow(-.206,.824,.549); // the scene's fixed light, so its ground shadow sits like the others'
+ // same illustrated shadow as the others (createIllustrationShadow: x − 0.6·y, z + 0.27·y, #92A6CF),
+ // falling across its sidewalk and continuing past the base onto the page
+ sweets.ground.shadowMat.color.set('#92A6CF');
+ sweets.updateShadow(.6,1,-.27,1,{layers:[{clip:true,y:.003},{clip:false,y:-.57}]});
  const [sweetsDoor,...sweetsMenus]=sweets.pickables;sweetsDoor.userData.action='sweetsDoor';for(const o of sweetsMenus)o.userData.action='sweetsMenu';
  const definitions=[
   {id:'cafe',number:'01',title:'Sakura Café',native:'桜カフェ',description:'Coffee, croissants & slow mornings.',model:cafe,dynamic:[cafe.door.leaf,cafe.sign],scale:.96,pivot:2.85,span:13.4,width:12.7,
@@ -30,8 +37,10 @@ export function createCollection(){
    labels:[['A little louvred lantern',[0,5.2,0],()=>bakery.roof.visible],['Croissant · bagel · milk bread',[.5,1.45,2.1],()=>bakery.pastries.visible],['Your bread to take home',()=>bakery.pickup.position.clone().add(new THREE.Vector3(0,.7,0))],['The morning oven',[-1.68,1.5,-1.1],()=>!bakery.shell.visible]]},
   {id:'flowers',number:'04',title:'Hanaya Flowers',native:'花屋',description:'Fresh blooms, picked for you.',model:flowers,dynamic:flowers.dynamic,scale:1.0,pivot:2.55,span:10.8,width:11.8,
    labels:flowers.labels},
-  {id:'sweets',number:'05',title:'Sakura Sweets',native:'桜スイーツ',description:'Cakes, tarts & something sweet.',model:sweets,dynamic:sweets.pickables,scale:.6,pivot:2.9,span:15,width:15.6,prebaked:true,
+  {id:'sweets',number:'05',title:'Sakura Sweets',native:'桜スイーツ',description:'Cakes, tarts & something sweet.',model:sweets,dynamic:sweets.pickables,scale:.74,pivot:3.3,span:15.8,width:15.6,prebaked:true,
    labels:[['A dormer in the roof',[-2.9,8.0,1.7]],['Something sweet, this way',[2.0,4.3,2.1]],['Tables on the terrace',[-2.0,1.0,4.1]]]},
+  {id:'books',number:'06',title:'The Little Bookshop',native:'本屋',description:'Stories, shelves & a reading roof.',model:books,dynamic:books.dynamic,scale:1.0,pivot:2.4,span:10.6,width:12.4,
+   labels:books.labels},
  ];
  for(const item of definitions){
   const wrapper=new THREE.Group();wrapper.name=item.title;wrapper.userData.buildingId=item.id;
@@ -44,15 +53,15 @@ export function createCollection(){
   else{
    const shadow=createIllustrationShadow(item.model.group);
    // bakery and flower shop share the same raised paved base
-   if(item.id==='bakery'||item.id==='flowers')shadow.position.y=.35;
+   if(item.id==='bakery'||item.id==='flowers'||item.id==='books')shadow.position.y=.35;
    lines=finishModel(item.model.group,item.dynamic);
    wrapper.add(item.model.group,shadow);
   }
-  item.wrapper=wrapper;item.lines=lines;item.colourIndex=0;item.hoverMaterials=[];
+  item.wrapper=wrapper;item.lines=lines;item.colourIndex=item.id==='books'?1:0;item.hoverMaterials=[];
   for(const target of item.dynamic)target.traverse(object=>{
    if(object.isMesh&&object.material.isMeshToonMaterial){const source=object.material;object.material=source.clone();item.hoverMaterials.push({object,source,target});}
   });
-  item.setColour=index=>{if(item.id==='cafe')cafe.setPalette(index);else if(item.id==='grocery')grocery.setTheme(index);else if(item.id==='flowers')flowers.setPalette(index);else if(item.id==='sweets')sweets.setPalette(index);else bakery.setPalette(index);item.colourIndex=index;};
+  item.setColour=index=>{if(item.id==='cafe')cafe.setPalette(index);else if(item.id==='grocery')grocery.setTheme(index);else if(item.id==='flowers')flowers.setPalette(index);else if(item.id==='sweets')sweets.setPalette(SWEETS_PALETTE[index]);else if(item.id==='books')books.setPalette(index);else bakery.setPalette(index);item.colourIndex=index;};
  }
  return Object.fromEntries(definitions.map(item=>[item.id,item]));
 }

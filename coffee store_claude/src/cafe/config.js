@@ -3,7 +3,7 @@
 export const INK = '#252525';
 
 export const PALETTES = [
-  { id: 'butter', name: 'Butter', wall: '#F6C445', trim: '#F7F3E9', roof: '#E19B2C', door: '#9AD5B6', shutter: '#9AD5B6', awning: '#EF745F', flower: '#EFA8C4' },
+  { id: 'butter', name: 'Butter', wall: '#F6C445', trim: '#F7F3E9', roof: '#CE775D', door: '#9AD5B6', shutter: '#9AD5B6', awning: '#EF745F', flower: '#EFA8C4' },
   { id: 'cream',  name: 'Cream',  wall: '#F7F3E9', trim: '#F1E6CC', roof: '#EF745F', door: '#9AD5B6', shutter: '#91B7EB', awning: '#EF745F', flower: '#EFA8C4' },
   { id: 'mint',   name: 'Mint',   wall: '#9AD5B6', trim: '#F7F3E9', roof: '#6CB290', door: '#F6C445', shutter: '#F7F3E9', awning: '#EF745F', flower: '#EFA8C4' },
   { id: 'sky',    name: 'Sky',    wall: '#91B7EB', trim: '#F7F3E9', roof: '#6B93D1', door: '#F6C445', shutter: '#F7F3E9', awning: '#EF745F', flower: '#EFA8C4' },

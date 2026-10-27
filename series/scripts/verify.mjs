@@ -5,7 +5,7 @@ const browser=await chromium.launch({channel:'chrome',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
 const errors=[],checks=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 function assert(value,message){if(!value)throw new Error(message);}
-const tabName={collection:'00 The collection 5',cafe:'01 Sakura Café',grocery:'02 Yamada Grocery'};
+const tabName={collection:'00 The collection 6',cafe:'01 Sakura Café',grocery:'02 Yamada Grocery'};
 async function choose(id){await page.getByRole('tab',{name:tabName[id],exact:true}).click();await page.waitForTimeout(120);assert(await page.evaluate(id=>__series.state.active===id,id),`Cannot select ${id}`);}
 async function screenshot(name){await page.mouse.move(12,12);await page.screenshot({path:new URL(name,output).pathname,fullPage:true});}
 async function canvasPoint(id,kind){return page.evaluate(({id,kind})=>{const item=__series.items[id];let target,position;if(kind==='door'){target=item.model.door.leaf;position=[0,.9,.15];}else if(kind==='menu'){target=item.model.sign;position=[0,0,.15];}else {target=item.model.storefront.shutter;position=[0,.5,.05];}const p=target.position.clone().set(...position);target.localToWorld(p);p.project(__series.camera);const r=document.querySelector('#scene').getBoundingClientRect();return{x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2};},{id,kind});}

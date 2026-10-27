@@ -100,18 +100,20 @@ export function buildGround(kit, root, cfg) {
   root.add(mesh);
   const casters = [];
 
-  function update(lx, ly, lz, length = 0.45) {
+  // `layers` lets a host lay the shadow at several heights, e.g. on the sidewalk (clipped to it)
+  // and under the slab (unclipped) so it continues beyond the base like the other buildings.
+  function update(lx, ly, lz, length = 0.45, { layers = [{ clip: true, y: 0.003 }] } = {}) {
     // light dir toward the sun (world); shadows run opposite, stylised shorter
     const k = length / ly;
     let n = 0;
     const arr = posAttr.array;
-    for (const pts of casters) {
-      const proj = pts.map(([x, y, z]) => [x - y * lx * k, z - y * lz * k]);
+    for (const layer of layers) for (const pts of casters) {
+      const proj = pts.map(([px, py, pz]) => [px - py * lx * k, pz - py * lz * k]);
       let hull = convexHull(proj);
       if (hull.length < 3) continue;
-      hull = clip(hull, poly);
+      if (layer.clip) hull = clip(hull, poly);
       for (let i = 1; i + 1 < hull.length && n + 3 <= CAP; i++) {
-        for (const q of [hull[0], hull[i], hull[i + 1]]) { arr[n * 3] = q[0]; arr[n * 3 + 1] = 0.003; arr[n * 3 + 2] = q[1]; n++; }
+        for (const q of [hull[0], hull[i], hull[i + 1]]) { arr[n * 3] = q[0]; arr[n * 3 + 1] = layer.y; arr[n * 3 + 2] = q[1]; n++; }
       }
     }
     geo.setDrawRange(0, n);

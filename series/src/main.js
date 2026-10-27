@@ -5,7 +5,7 @@ import './style.css';
 
 const $=selector=>document.querySelector(selector);
 const host=$('#scene');
-const state={active:'collection',doorOpen:false,shutterOpen:false,shutterAmount:0,labels:false,auto:false,view:'iso',zoomGoal:null,bakeryDoorOpen:false,pastriesVisible:true,seeThrough:false,breadTaken:false,flowerDoorOpen:false,ventOpen:false,ventAmount:0,bouquetTaken:false,sweetsDoorOpen:false};
+const state={active:'collection',doorOpen:false,shutterOpen:false,shutterAmount:0,labels:false,auto:false,view:'iso',zoomGoal:null,bakeryDoorOpen:false,pastriesVisible:true,seeThrough:false,breadTaken:false,flowerDoorOpen:false,ventOpen:false,ventAmount:0,bouquetTaken:false,sweetsDoorOpen:false,booksDoorOpen:false,booksDoorAmount:0,booksLights:true,bookOpen:false,bookAmount:0};
 let dirty=true,frames=0,hover=null,gesture=null;
 const invalidate=()=>{dirty=true;};
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -38,7 +38,7 @@ function layout(){
   item.wrapper.visible=overview||state.active===item.id;
   // four places side by side (or stacked on phones), centred on the middle gap
   const middle=(Object.keys(items).length-1)/2;
-  item.wrapper.scale.setScalar(stackedOverview()?[.78,.68,.98,.92,.56][index]:overview?item.scale:1);
+  item.wrapper.scale.setScalar(stackedOverview()?[.78,.68,.98,.92,.7,.86][index]:overview?item.scale:1);
   if(stackedOverview())item.wrapper.position.copy(up).multiplyScalar((middle-index)*10.8);
   else item.wrapper.position.copy(right).multiplyScalar(overview?(index-middle)*11.4:0);
  }
@@ -55,7 +55,7 @@ function resize(){
  renderer.setSize(w,h);revealActiveTab();
  const item=items[state.active];
  const count=Object.keys(items).length;
- const vertical=item?item.span:stackedOverview()?count*11:13.4,horizontal=item?item.width:stackedOverview()?11.8:count*11.4+.8;
+ const vertical=item?item.span:stackedOverview()?count*11:13.4,horizontal=item?item.width:stackedOverview()?11.8:count*11.4+3;
  const span=Math.max(vertical,horizontal/aspect);
  camera.left=-span*aspect/2;camera.right=span*aspect/2;camera.top=span/2;camera.bottom=-span/2;
  camera.clearViewOffset();camera.updateProjectionMatrix();
@@ -86,8 +86,12 @@ function updateActions(){
  $('#door').hidden=!['collection','cafe'].includes(state.active);$('#menu-button').hidden=$('#door').hidden;$('#shutter').hidden=!['collection','grocery'].includes(state.active);
  for(const id of ['bakery-door','pastries','take-bread'])$('#'+id).hidden=state.active!=='bakery';
  for(const id of ['flower-door','vent','pick-bouquet'])$('#'+id).hidden=state.active!=='flowers';
- $('#see-through').hidden=!['bakery','flowers'].includes(state.active);
+ $('#see-through').hidden=!['bakery','flowers','books'].includes(state.active);
  for(const id of ['sweets-door','sweets-menu-button'])$('#'+id).hidden=state.active!=='sweets';
+ for(const id of ['books-door','books-lights','books-book'])$('#'+id).hidden=state.active!=='books';
+ $('#books-door').innerHTML=`${state.booksDoorOpen?'Close':'Open'} the door <span>↗</span>`;$('#books-door').setAttribute('aria-pressed',String(state.booksDoorOpen));
+ $('#books-lights').textContent=state.booksLights?'Lights off':'Lights on';$('#books-lights').setAttribute('aria-pressed',String(!state.booksLights));
+ $('#books-book').innerHTML=`${state.bookOpen?'Close':'Open'} the book <span>↗</span>`;$('#books-book').setAttribute('aria-pressed',String(state.bookOpen));
  $('#sweets-door').innerHTML=`${state.sweetsDoorOpen?'Close':'Open'} the door <span>↗</span>`;$('#sweets-door').setAttribute('aria-pressed',String(state.sweetsDoorOpen));
  $('#flower-door').innerHTML=`${state.flowerDoorOpen?'Close':'Open'} the door <span>↗</span>`;$('#flower-door').setAttribute('aria-pressed',String(state.flowerDoorOpen));
  $('#vent').innerHTML=`${state.ventOpen?'Close':'Open'} the glasshouse vent <span>↗</span>`;$('#vent').setAttribute('aria-pressed',String(state.ventOpen));
@@ -109,8 +113,8 @@ function select(id,{writeHash=true}={}){
  $('#exhibition').setAttribute('aria-labelledby',`tab-${id}`);
  $('#building-captions').hidden=!overview;
  $('#stage-caption').textContent=overview?'THE COMPLETE COLLECTION':`${items[id].number} / ${items[id].title.toUpperCase()} · ${items[id].native}`;
- $('#object-description').textContent=overview?'01 Sakura Café  +  02 Yamada Grocery  +  03 Bonjour Bakery  +  04 Hanaya Flowers  +  05 Sakura Sweets':`${items[id].number} / ${items[id].description}`;
- $('#action-hint').textContent=overview?'Pick a place. Make yourself at home.':id==='cafe'?'A door to open. A menu to linger over.':id==='bakery'?'Fresh from the oven. Made for you.':id==='flowers'?'Fresh blooms. A glasshouse on the roof.':id==='sweets'?'A door to open. Something sweet inside.':'Everyday goods & four little capsule machines.';
+ $('#object-description').textContent=overview?'01 Café  +  02 Grocery  +  03 Bakery  +  04 Flowers  +  05 Sweets  +  06 Bookshop':`${items[id].number} / ${items[id].description}`;
+ $('#action-hint').textContent=overview?'Pick a place. Make yourself at home.':id==='cafe'?'A door to open. A menu to linger over.':id==='bakery'?'Fresh from the oven. Made for you.':id==='flowers'?'Fresh blooms. A glasshouse on the roof.':id==='sweets'?'A door to open. Something sweet inside.':id==='books'?'Shelves to browse. A roof to read on.':'Everyday goods & four little capsule machines.';
  if(writeHash)history.replaceState(null,'',`#${id}`);
  updateActions();updateColourUI();setView('iso');resize();
  if(id!=='cafe'&&id!=='collection'&&$('#cafe-menu').open)$('#cafe-menu').close();
@@ -133,12 +137,16 @@ function takeBread(){state.breadTaken=!state.breadTaken;$('#action-hint').textCo
 $('#bakery-door').onclick=toggleBakeryDoor;$('#take-bread').onclick=takeBread;
 $('#pastries').onclick=()=>{state.pastriesVisible=!state.pastriesVisible;items.bakery.model.setPastries(state.pastriesVisible);updateActions();invalidate();};
 // See-through cuts away both one-storey shops at once, so switching between them stays consistent.
-$('#see-through').onclick=()=>{state.seeThrough=!state.seeThrough;items.bakery.model.setSeeThrough(state.seeThrough);items.flowers.model.setSeeThrough(state.seeThrough);updateActions();invalidate();};
+$('#see-through').onclick=()=>{state.seeThrough=!state.seeThrough;items.bakery.model.setSeeThrough(state.seeThrough);items.flowers.model.setSeeThrough(state.seeThrough);items.books.model.setSeeThrough(state.seeThrough);updateActions();invalidate();};
 function toggleFlowerDoor(){state.flowerDoorOpen=!state.flowerDoorOpen;updateActions();invalidate();}
 function toggleVent(){state.ventOpen=!state.ventOpen;updateActions();invalidate();}
 function pickBouquet(){state.bouquetTaken=!state.bouquetTaken;$('#action-hint').textContent=state.bouquetTaken?'A fresh bunch, just for you.':'Back on the workbench, still fresh.';updateActions();invalidate();}
 function toggleSweetsDoor(){state.sweetsDoorOpen=!state.sweetsDoorOpen;items.sweets.model.toggleDoor();updateActions();invalidate();}
 const showSweetsMenu=()=>{const d=$('#sweets-menu');if(!d.open)d.showModal();};
+function toggleBooksDoor(){state.booksDoorOpen=!state.booksDoorOpen;updateActions();invalidate();}
+function toggleBooksLights(){state.booksLights=!state.booksLights;items.books.model.setLights(state.booksLights);updateActions();invalidate();}
+function toggleBook(){state.bookOpen=!state.bookOpen;updateActions();invalidate();}
+$('#books-door').onclick=toggleBooksDoor;$('#books-lights').onclick=toggleBooksLights;$('#books-book').onclick=toggleBook;
 $('#sweets-door').onclick=toggleSweetsDoor;$('#sweets-menu-button').onclick=showSweetsMenu;
 $('#flower-door').onclick=toggleFlowerDoor;$('#vent').onclick=toggleVent;$('#pick-bouquet').onclick=pickBouquet;
 const menu=$('#cafe-menu'),about=$('#about-dialog');
@@ -180,13 +188,13 @@ host.addEventListener('pointermove',event=>{
  if(event.buttons||event.pointerType==='touch'){hover=null;$('#tooltip').style.display='none';return;}
  hover=pick(event);const actionable=!!hover&&(!!hover.action||state.active==='collection');renderer.domElement.style.cursor=actionable?'pointer':'grab';
  const tooltip=$('#tooltip');tooltip.style.display=actionable?'block':'none';
- if(actionable){tooltip.textContent=hover.action==='sweetsDoor'?(state.sweetsDoorOpen?'Close the dessert shop door':'Step inside for something sweet'):hover.action==='sweetsMenu'?'See the dessert menu':hover.action==='flowerDoor'?(state.flowerDoorOpen?'Close the shop door':'Step inside the flower shop'):hover.action==='flowerVent'?(state.ventOpen?'Close the glasshouse vent':'Let the glasshouse breathe'):hover.action==='flowerPick'?(state.bouquetTaken?'Put the bouquet back':'Pick a fresh bouquet'):hover.action==='bakeryDoor'?(state.bakeryDoorOpen?'Close the bakery door':'Step inside the bakery'):hover.action==='bakeryTake'?(state.breadTaken?'Put your bread back':'Take a warm loaf home'):hover.action==='door'?(state.doorOpen?'Close the café door':'Step inside the café'):hover.action==='menu'?'Explore the café menu':hover.action==='shutter'?(state.shutterOpen?'Close the grocery shutter':'Open the grocery'):`Explore ${items[hover.id].title} ↗`;tooltip.style.left=`${Math.max(8,Math.min(event.clientX+12,innerWidth-240))}px`;tooltip.style.top=`${Math.max(8,event.clientY-36)}px`;}
+ if(actionable){tooltip.textContent=hover.action==='booksDoor'?(state.booksDoorOpen?'Close the bookshop door':'Step inside the bookshop'):hover.action==='booksOpen'?(state.bookOpen?'Close the book':'Open today\'s pick'):hover.action==='sweetsDoor'?(state.sweetsDoorOpen?'Close the dessert shop door':'Step inside for something sweet'):hover.action==='sweetsMenu'?'See the dessert menu':hover.action==='flowerDoor'?(state.flowerDoorOpen?'Close the shop door':'Step inside the flower shop'):hover.action==='flowerVent'?(state.ventOpen?'Close the glasshouse vent':'Let the glasshouse breathe'):hover.action==='flowerPick'?(state.bouquetTaken?'Put the bouquet back':'Pick a fresh bouquet'):hover.action==='bakeryDoor'?(state.bakeryDoorOpen?'Close the bakery door':'Step inside the bakery'):hover.action==='bakeryTake'?(state.breadTaken?'Put your bread back':'Take a warm loaf home'):hover.action==='door'?(state.doorOpen?'Close the café door':'Step inside the café'):hover.action==='menu'?'Explore the café menu':hover.action==='shutter'?(state.shutterOpen?'Close the grocery shutter':'Open the grocery'):`Explore ${items[hover.id].title} ↗`;tooltip.style.left=`${Math.max(8,Math.min(event.clientX+12,innerWidth-240))}px`;tooltip.style.top=`${Math.max(8,event.clientY-36)}px`;}
  invalidate();
 });
 host.addEventListener('pointerup',event=>{
  const isClick=gesture&&gesture.id===event.pointerId&&gesture.distance<6&&Math.hypot(event.clientX-gesture.x,event.clientY-gesture.y)<6;gesture=null;
  if(!isClick)return;const result=pick(event);if(!result)return;
- if(result.action==='sweetsDoor')toggleSweetsDoor();else if(result.action==='sweetsMenu')showSweetsMenu();else if(result.action==='flowerDoor')toggleFlowerDoor();else if(result.action==='flowerVent')toggleVent();else if(result.action==='flowerPick')pickBouquet();else if(result.action==='bakeryDoor')toggleBakeryDoor();else if(result.action==='bakeryTake')takeBread();else if(result.action==='door')toggleDoor();else if(result.action==='shutter')toggleShutter();else if(result.action==='menu')showMenu();else if(state.active==='collection')select(result.id);
+ if(result.action==='booksDoor')toggleBooksDoor();else if(result.action==='booksOpen')toggleBook();else if(result.action==='sweetsDoor')toggleSweetsDoor();else if(result.action==='sweetsMenu')showSweetsMenu();else if(result.action==='flowerDoor')toggleFlowerDoor();else if(result.action==='flowerVent')toggleVent();else if(result.action==='flowerPick')pickBouquet();else if(result.action==='bakeryDoor')toggleBakeryDoor();else if(result.action==='bakeryTake')takeBread();else if(result.action==='door')toggleDoor();else if(result.action==='shutter')toggleShutter();else if(result.action==='menu')showMenu();else if(state.active==='collection')select(result.id);
 });
 host.addEventListener('pointercancel',()=>gesture=null);host.addEventListener('pointerleave',()=>{hover=null;$('#tooltip').style.display='none';invalidate();});
 function project(point){return point.clone().project(camera);}
@@ -221,13 +229,17 @@ renderer.setAnimationLoop(()=>{
  const bouquetTarget=state.bouquetTaken?flowers.pickAway:flowers.pickHome;
  const movingFlowers=Math.abs(flowers.door.hinge.rotation.y-flowerDoorGoal)>.0001||Math.abs(state.ventAmount-ventGoal)>.0001||flowers.pickup.position.distanceToSquared(bouquetTarget)>.000001;
  const movingSweets=items.sweets.model.update(dt);
- if(!dirty&&!changed&&!movingBakeryDoor&&!movingBag&&!movingFlowers&&!movingSweets&&!movingDoor&&!movingShutter&&state.zoomGoal===null&&!state.auto)return;
+ const booksModel=items.books.model,booksDoorGoal=state.booksDoorOpen?1:0,bookGoal=state.bookOpen?1:0;
+ const movingBooks=Math.abs(state.booksDoorAmount-booksDoorGoal)>.0005||Math.abs(state.bookAmount-bookGoal)>.0005;
+ if(!dirty&&!changed&&!movingBakeryDoor&&!movingBag&&!movingFlowers&&!movingSweets&&!movingBooks&&!movingDoor&&!movingShutter&&state.zoomGoal===null&&!state.auto)return;
  dirty=false;
  if(state.zoomGoal!==null){camera.zoom=reducedMotion.matches?state.zoomGoal:THREE.MathUtils.damp(camera.zoom,state.zoomGoal,12,dt);if(Math.abs(camera.zoom-state.zoomGoal)<.001){camera.zoom=state.zoomGoal;state.zoomGoal=null;}camera.updateProjectionMatrix();}
  items.cafe.model.door.hinge.rotation.y=reducedMotion.matches?(state.doorOpen?-Math.PI*.58:0):THREE.MathUtils.damp(items.cafe.model.door.hinge.rotation.y,state.doorOpen?-Math.PI*.58:0,9,dt);
  state.shutterAmount=reducedMotion.matches?(state.shutterOpen?1:0):THREE.MathUtils.damp(state.shutterAmount,state.shutterOpen?1:0,7,dt);items.grocery.model.storefront.setOpen(state.shutterAmount);
  bakery.door.hinge.rotation.y=reducedMotion.matches?(state.bakeryDoorOpen?-Math.PI*.56:0):THREE.MathUtils.damp(bakery.door.hinge.rotation.y,state.bakeryDoorOpen?-Math.PI*.56:0,9,dt);
  bakery.pickup.position.lerp(bagTarget,reducedMotion.matches?1:1-Math.exp(-8*dt));if(!movingBag)bakery.pickup.position.copy(bagTarget);
+ state.booksDoorAmount=reducedMotion.matches?booksDoorGoal:THREE.MathUtils.damp(state.booksDoorAmount,booksDoorGoal,8,dt);if(Math.abs(state.booksDoorAmount-booksDoorGoal)<.001)state.booksDoorAmount=booksDoorGoal;booksModel.setDoor(state.booksDoorAmount);
+ state.bookAmount=reducedMotion.matches?bookGoal:THREE.MathUtils.damp(state.bookAmount,bookGoal,4,dt);if(Math.abs(state.bookAmount-bookGoal)<.001)state.bookAmount=bookGoal;booksModel.setBook?.(state.bookAmount);
  flowers.door.hinge.rotation.y=reducedMotion.matches?flowerDoorGoal:THREE.MathUtils.damp(flowers.door.hinge.rotation.y,flowerDoorGoal,9,dt);
  state.ventAmount=reducedMotion.matches?ventGoal:THREE.MathUtils.damp(state.ventAmount,ventGoal,7,dt);if(Math.abs(state.ventAmount-ventGoal)<.0005)state.ventAmount=ventGoal;flowers.setVent(state.ventAmount);
  flowers.pickup.position.lerp(bouquetTarget,reducedMotion.matches?1:1-Math.exp(-8*dt));if(flowers.pickup.position.distanceToSquared(bouquetTarget)<.000001)flowers.pickup.position.copy(bouquetTarget);
@@ -237,6 +249,6 @@ renderer.setAnimationLoop(()=>{
 });
 new ResizeObserver(resize).observe(host);
 window.addEventListener('hashchange',()=>select(location.hash.slice(1)||'collection',{writeHash:false}));
-select(['cafe','grocery','bakery','flowers','sweets'].includes(location.hash.slice(1))?location.hash.slice(1):'collection');
+select(['cafe','grocery','bakery','flowers','sweets','books'].includes(location.hash.slice(1))?location.hash.slice(1):'collection');
 $('#loading').hidden=true;
 window.__series={items,state,scene,camera,controls,renderer,select,setView,get frames(){return frames;}};

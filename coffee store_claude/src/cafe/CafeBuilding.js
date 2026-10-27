@@ -112,7 +112,7 @@ export function createCafe(options = {}) {
       }
       return busy;
     },
-    updateShadow(lx, ly, lz) { ground?.update(lx, ly, lz); },
+    updateShadow(lx, ly, lz, length, opts) { ground?.update(lx, ly, lz, length, opts); },
     setResolution(w, h) { kit.setResolution(w, h); },
     refreshFonts() {
       for (const o of [door.tagTex, sign.tex, roundSign.tex, ...(deco.textures || [])]) o?.userData.redraw?.();
