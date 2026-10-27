@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-27T11:06:28.856Z",
+  "viewports": [
+    "1440 × 1040",
+    "390 × 844"
+  ],
+  "initial": {
+    "calls": 102,
+    "triangles": 285852,
+    "textures": 2,
+    "orthographic": true
+  },
+  "checks": [
+    "orthographic camera renders the model",
+    "door opens/closes from the button and from a click on the 3D door",
+    "glasshouse vent lifts and closes",
+    "see-through toggles roof/shell/glass; bouquet moves to the cart and back",
+    "five palettes recolour the shared materials",
+    "labels, front/side views, drag-orbit, smooth zoom",
+    "390 × 844: no horizontal overflow"
+  ],
+  "consoleErrors": []
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sakura Sweets — Isometric Corner House</title>
+  <meta name="description" content="An interactive isometric Three.js illustration of a two-storey European corner dessert shop." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F6C445'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23EFA8C4' stroke='%23252525' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="scene" aria-label="Isometric 3D corner dessert shop. Drag to rotate, scroll to zoom." role="img"></canvas>
+
+  <header class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div>
+      <h1>Sakura Sweets</h1>
+      <p>A corner house, drawn in three dimensions</p>
+    </div>
+  </header>
+
+  <div class="tip" id="tip" role="status" aria-live="polite" hidden></div>
+
+  <section class="menu" id="menu" role="dialog" aria-modal="false" aria-labelledby="menu-title" hidden>
+    <button class="menu-close" id="menu-close" aria-label="Close menu">×</button>
+    <p class="eyebrow">Today in the pastry case</p>
+    <h2 id="menu-title">Sakura Sweets</h2>
+    <ul class="items">
+      <li><span class="n">Strawberry shortcake</span><span class="d">vanilla sponge, fresh cream</span><span class="p">6.5</span></li>
+      <li><span class="n">Matcha roll</span><span class="d">Uji matcha, red bean cream</span><span class="p">5.8</span></li>
+      <li><span class="n">Mont blanc</span><span class="d">chestnut, meringue base</span><span class="p">6.2</span></li>
+      <li><span class="n">Sakura mochi</span><span class="d">pink rice, salted leaf</span><span class="p">3.5</span></li>
+      <li><span class="n">Seasonal fruit tart</span><span class="d">almond cream, glazed fruit</span><span class="p">5.6</span></li>
+      <li><span class="n">Flat white</span><span class="d">to go with something sweet</span><span class="p">4.4</span></li>
+    </ul>
+    <p class="foot">Open daily 10:00 — 19:00</p>
+  </section>
+
+  <footer class="controls">
+    <div class="swatches" id="swatches" role="radiogroup" aria-label="Building colour"></div>
+    <div class="actions">
+      <div class="zoom" aria-label="Zoom">
+        <button id="zoom-out" aria-label="Zoom out">−</button>
+        <output id="zoom-label">100%</output>
+        <button id="zoom-in" aria-label="Zoom in">+</button>
+      </div>
+      <button id="door-btn" class="pill">Open door</button>
+      <button id="reset" class="pill">Reset view</button>
+    </div>
+    <p class="hint">Drag to rotate · Scroll to zoom · Click the door or the sign</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

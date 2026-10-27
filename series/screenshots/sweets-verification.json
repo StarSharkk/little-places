@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-27T11:53:41.215Z",
+  "checks": [
+    "#sweets deep link, contextual controls, SWEETS signage",
+    "door from the button and from a click on the model",
+    "dessert menu from the sign and from the button",
+    "five palettes",
+    "labels, 5-place overview, caption navigation",
+    "390 px without overflow"
+  ],
+  "consoleErrors": []
+}

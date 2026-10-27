@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F7F3E9"><meta name="description" content="Hanaya Flowers — a miniature flower shop with a glasshouse roof. Part of the Little Places collection."><title>Hanaya Flowers — Little Places</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"></head>
+<body><div class="page">
+<header><div class="brand"><svg class="brand-symbol" viewBox="0 0 64 64" aria-hidden="true"><path d="M7 51V27l15-12 15 12v24M3 51h54M13 51V38h12v13M32 15l8-9 8 9M40 6v9"/><circle cx="22" cy="27" r="3.5"/></svg><span>Little Places<span class="brand-sub">04 / A FLOWER SHOP</span></span></div><div class="header-right"><span>ARCHITECTURE, AT PLAY</span></div></header>
+<div class="intro"><div><span class="eyebrow">建筑小集 · 花屋</span><h1>Hanaya Flowers.</h1></div><p>Fresh blooms, picked<br>for you every morning.</p></div>
+<div class="action-row" role="group" aria-label="Building interactions"><span class="row-label">TRY IT</span>
+<button id="door" class="pill" aria-pressed="false">Open the door <span>↗</span></button>
+<button id="vent" class="pill" aria-pressed="false">Open the glasshouse vent <span>↗</span></button>
+<button id="pick" class="pill" aria-pressed="false">Pick a bouquet <span>↗</span></button>
+<button id="see-through" class="pill" aria-pressed="false">See-through</button>
+<span class="action-hint" id="action-hint" role="status" aria-live="polite">Fresh blooms. A glasshouse on the roof.</span></div>
+<main id="exhibition"><div id="scene" aria-label="Interactive miniature flower shop. Drag to rotate and scroll to zoom."></div>
+<div class="stage-corner"><span class="live-dot"></span><span>04 / HANAYA FLOWERS · 花屋</span></div><div id="labels" aria-hidden="true"></div>
+<div class="stage-tools"><button id="labels-button" class="pill" aria-pressed="false">Labels</button><button id="turntable" class="pill" aria-pressed="false">Turntable <span>↻</span></button></div>
+<div class="zoom"><button id="zoom-out" aria-label="Zoom out">−</button><output id="zoom-value">100%</output><button id="zoom-in" aria-label="Zoom in">+</button></div><div id="tooltip" role="status"></div></main>
+<section class="settings" aria-label="Settings"><div class="colour-settings"><span class="row-label">COLOUR</span><div id="colours" role="group" aria-label="Building colours"></div><span id="colour-name">Butter yellow</span></div>
+<div class="view-settings"><span class="row-label">VIEW</span><div class="view-pills" role="group" aria-label="Camera views"><button class="pill selected" data-view="iso" aria-pressed="true">Default view <span>↺</span></button><button class="pill" data-view="front" aria-pressed="false">Front</button><button class="pill" data-view="side" aria-pressed="false">Side</button></div></div></section>
+<footer><span>04 / Fresh blooms, picked for you.</span><span class="gesture">Drag to rotate <i>·</i> Scroll to zoom</span><span class="edition">LITTLE PLACES · A FLOWER SHOP</span></footer>
+</div><script type="module" src="/src/main.js"></script></body></html>

@@ -1,19 +1,19 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-26T13:05:59.354Z",
+  "checkedAt": "2026-10-27T11:54:37.249Z",
   "viewports": [
     "1440 × 1000",
     "390 × 844"
   ],
   "initial": {
-    "calls": 72,
-    "triangles": 257276,
-    "textures": 13,
+    "calls": 327,
+    "triangles": 1095148,
+    "textures": 23,
     "azimuth": 45,
     "elevation": 32.47251629973425
   },
   "checks": [
-    "one canvas, two real 3D models",
+    "one canvas, three real 3D models",
     "orthographic 45-degree camera",
     "grocery shutter raycast, four capsule machines, poster clearance",
     "café door and sign raycasts, native menu dialog",

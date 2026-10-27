@@ -5,14 +5,14 @@ const browser=await chromium.launch({channel:'chrome',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
 const errors=[],checks=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 function assert(value,message){if(!value)throw new Error(message);}
-const tabName={collection:'00 The collection 2',cafe:'01 Sakura Café',grocery:'02 Yamada Grocery'};
+const tabName={collection:'00 The collection 5',cafe:'01 Sakura Café',grocery:'02 Yamada Grocery'};
 async function choose(id){await page.getByRole('tab',{name:tabName[id],exact:true}).click();await page.waitForTimeout(120);assert(await page.evaluate(id=>__series.state.active===id,id),`Cannot select ${id}`);}
 async function screenshot(name){await page.mouse.move(12,12);await page.screenshot({path:new URL(name,output).pathname,fullPage:true});}
 async function canvasPoint(id,kind){return page.evaluate(({id,kind})=>{const item=__series.items[id];let target,position;if(kind==='door'){target=item.model.door.leaf;position=[0,.9,.15];}else if(kind==='menu'){target=item.model.sign;position=[0,0,.15];}else {target=item.model.storefront.shutter;position=[0,.5,.05];}const p=target.position.clone().set(...position);target.localToWorld(p);p.project(__series.camera);const r=document.querySelector('#scene').getBoundingClientRect();return{x:r.x+(p.x+1)*r.width/2,y:r.y+(1-p.y)*r.height/2};},{id,kind});}
 try {
  await page.goto((process.env.BASE_URL||'http://127.0.0.1:5176/')+'#collection',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!window.__series);await page.waitForTimeout(250);
  assert(await page.locator('canvas').count()===1,'Collection must share one renderer');
- assert(await page.evaluate(()=>Object.values(__series.items).every(i=>i.wrapper.visible)),'Both buildings must appear in the overview');checks.push('one canvas, two real 3D models');
+ assert(await page.evaluate(()=>Object.values(__series.items).every(i=>i.wrapper.visible)),'Both buildings must appear in the overview');checks.push('one canvas, three real 3D models');
  const initial=await page.evaluate(()=>({calls:__series.renderer.info.render.calls,triangles:__series.renderer.info.render.triangles,textures:__series.renderer.info.memory.textures,azimuth:__series.controls.getAzimuthalAngle()*180/Math.PI,elevation:90-__series.controls.getPolarAngle()*180/Math.PI}));
  assert(Math.abs(initial.azimuth-45)<.001&&initial.elevation>30&&initial.elevation<35,'Incorrect default orthographic view');checks.push('orthographic 45-degree camera');
  await screenshot('collection-desktop.png');

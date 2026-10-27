@@ -1,1 +1,22 @@
-{"name":"little-places-building-series","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"vite --host 127.0.0.1 --port 5176 --strictPort","build":"vite build","preview":"vite preview --host 127.0.0.1 --port 4176 --strictPort","check":"node scripts/verify.mjs"},"dependencies":{"three":"0.180.0"},"devDependencies":{"vite":"7.3.7","playwright":"1.61.1"}}
+{
+  "name": "little-places-building-series",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5176 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4176 --strictPort",
+    "check": "node scripts/verify.mjs",
+    "check:bakery": "node scripts/verify-bakery.mjs",
+    "check:flowers": "node scripts/verify-flowers.mjs",
+    "check:sweets": "node scripts/verify-sweets.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "vite": "7.3.7",
+    "playwright": "1.61.1"
+  }
+}

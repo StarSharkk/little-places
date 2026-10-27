@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-27T08:34:11.305Z",
+  "scopeUnchanged": [
+    "src/main.js",
+    "src/style.css",
+    "index.html",
+    "src/bakery/Pastries.js",
+    "src/bakery/Details.js",
+    "src/bakery/primitives.js",
+    "src/bakery/materials.js",
+    "src/bakery/Atlas.js"
+  ],
+  "audit": {
+    "diameter": 2.0299999713897705,
+    "roofWidth": 6.04,
+    "diameterRatio": 0.3360927104949951,
+    "strawberryCount": 4,
+    "creamRosetteCount": 8,
+    "closestToppingCenters": 0.44012593520399174,
+    "roofSurfaceY": 3.5975,
+    "pedestalBottomY": 3.5975,
+    "decorationTopY": 4.754100246252269,
+    "center": [
+      0,
+      0
+    ]
+  },
+  "oldRoofDecorationNodes": [],
+  "consoleErrors": []
+}

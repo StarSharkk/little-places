@@ -1,0 +1,10 @@
+{
+  "src/main.js": "3451283d98ea657237de55d5de882e5dfa402e4d3934b2de2a0f74164adf6636",
+  "src/style.css": "55a99a4095fd0f4a2d42c48987f03377c65b288bbef3cb8746a9defdeccfaa00",
+  "index.html": "bad22f6fcb92586e8d972210d08d1632072671c0e1957d0ad0f55e5ba4f5d46c",
+  "src/bakery/Pastries.js": "204c8d45da58053601cac29cb25a5bb733ca758d36d37cbf6d9f65c409e2a12c",
+  "src/bakery/Details.js": "c09529789ea44145b3ab39e5c19d595dba51a30e54fcf96815fd1de71a547de5",
+  "src/bakery/primitives.js": "edaae66378454bcd659b52eb4a64e352f4435b37c98ac8b4e574fe258c0beced",
+  "src/bakery/materials.js": "2aa61a2f56d725e893c5e0046ac6ff6331a9998735133bd6842eac0d4f0710dc",
+  "src/bakery/Atlas.js": "1f9a21aca7f649a811363f7d5769679d1f869c4e1db98754e1d797de6839c873"
+}
