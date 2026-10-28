@@ -6,7 +6,7 @@ English · [中文](README.zh-CN.md)
 
 Ten little shops and stations, each a real Three.js model you can turn all the way round, look inside and play with: open the doors, post a letter, start a wash, light the pizza oven, catch the tram. They are drawn as if by one illustrator — flat toon colour, dark ink outlines, a warm limited palette, white paving and a soft blue afternoon shadow — and shown together on one page.
 
-![The collection](web/screenshots/collection-desktop.png)
+![The collection](web/screenshots/readme-home.png)
 
 ## The ten places
 
@@ -30,8 +30,6 @@ Every place also has five colour schemes, Night mode, labels and a turntable.
 - **The collection** — the ten places on a slow tour. Drag any one to turn them all together; rest the pointer on a place to pause the tour and bring it a little closer; click it to look closer. The wheel always scrolls the page — zoom with the − / + buttons. Colours, Night, Labels, Turntable and the Default / Front / Side views work across the whole collection or on one place (`/#cafe` … `/#tram`).
 - **A closer look** (below the collection, `/#explore/<id>`) — one place at a time in a large display case: its own interactions, a Details list that turns the camera to each detail, See-through, Night, Turntable, Fullscreen and paging. Notes in [web/EXPLORER.md](web/EXPLORER.md).
 - **Get the skill** (`/skill.html`) — how to install the Claude skill behind the series, with four places turning by themselves.
-
-![A closer look: the Little Post Office in the display case](web/screenshots/explorer-post.png)
 
 ![Get the skill](web/screenshots/skill-page.png)
 

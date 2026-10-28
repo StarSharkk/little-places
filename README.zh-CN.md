@@ -6,7 +6,7 @@
 
 十个小店和车站，每一个都是真正的 Three.js 模型：可以转一整圈、看进屋里，还能动手玩——开门、投信、洗衣服、点燃披萨炉、等电车进站。它们像出自同一位插画师之手：平涂的卡通色、深色墨线、温暖克制的配色、白色铺地和一片柔和的蓝色午后投影，全部放在同一个网页上展示。
 
-![建筑合集](web/screenshots/collection-desktop.png)
+![建筑合集](web/screenshots/readme-home.png)
 
 ## 十个地方
 
@@ -30,8 +30,6 @@
 - **建筑合集** —— 十个地方慢慢巡游。拖动其中任意一栋，所有建筑一起转；鼠标停在某一栋上，巡游暂停，这一栋稍微放大；点击它可以看近景。滚轮永远只滚动页面，缩放用 − / + 按钮。配色、夜间、标签、自动旋转和默认 / 正面 / 侧面视角，既可以作用于整个合集，也可以只看一栋（`/#cafe` … `/#tram`）。
 - **近看展厅**（合集下方，`/#explore/<id>`）—— 一次只看一栋，放在一个大展示框里：它自己的互动、一个会把镜头转到各处细节的 Details 列表、透视、夜间、自动旋转、全屏和翻页。说明见 [web/EXPLORER.md](web/EXPLORER.md)。
 - **Get the skill**（`/skill.html`）—— 介绍这套建筑背后的 Claude skill 如何安装，右侧四栋建筑一组自己转动展示。
-
-![近看展厅：Little Post Office](web/screenshots/explorer-post.png)
 
 ![Get the skill 页面](web/screenshots/skill-page.png)
 
