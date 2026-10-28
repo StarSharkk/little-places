@@ -19,3 +19,7 @@
   .header-cta{order:3;flex-basis:100%;flex-direction:row;flex-wrap:wrap;gap:10px}
   .header-cta .cta-button{flex:1 1 auto;justify-content:center;font-size:11px;padding:0 10px}
 }
+/* the zili design label beside the title: a hand-inked paper pill, tilted like a sticker; the boil does the emphasis */
+.brand .zili-label{flex:none;transform:rotate(-4deg) translateY(-9px);margin-left:4px;overflow:visible}
+@media (max-width:650px){.brand .zili-label{width:112px;height:31px;transform:rotate(-4deg) translateY(-7px);margin-left:0}}
+@media (max-width:370px){.brand .zili-label{display:none}}

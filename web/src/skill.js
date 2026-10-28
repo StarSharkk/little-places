@@ -3,6 +3,7 @@ import './style.css';
 import './cta.css';
 import './fit.css';
 import './skill.css';
+import './zili-label.js';
 import { createCollection, buildingCatalog } from './collection.js';
 
 const $ = (s) => document.querySelector(s);
