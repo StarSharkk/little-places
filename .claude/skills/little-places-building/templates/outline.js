@@ -1,5 +1,5 @@
 import * as THREE from "three";
-// Template copy of "coffee store/src/components/outline.js".
+// Template copy of buildings/01-sakura-cafe/src/components/outline.js.
 // Ink silhouette for round, organic shapes (blossom, trunk, pot). Edge lines only catch hard corners,
 // so smooth forms get an inverted hull: a back-facing copy pushed out by a constant number of pixels.
 // `resolution` mirrors LineMaterial so the viewer's resize loop can update it alongside the edge lines.

@@ -4,7 +4,7 @@ Contents: 1 Rendering · 2 Palette · 3 Proportions · 4 Detail tiers and budget
 
 ## 1 Rendering
 
-The page owns the renderer, camera and lights (`series/src/main.js`): `OrthographicCamera`, `HemisphereLight(0xffffff, 0xc3b59e, 1.8)` plus one `DirectionalLight(0xffffff, 1.4)` at (-3, 12, 8), default view at azimuth 25°, elevation 28°, distance 23.5 (`VIEW` in `main.js`, matched to the owner's preferred angle); the collection opens at 220% on desktop, 155% on phones, single places at 145%. Front faces (+z) read a little wider than side faces (+x). A building module owns none of these. It returns a `THREE.Group` and never touches the DOM.
+The page owns the renderer, camera and lights (`web/src/main.js`): `OrthographicCamera`, `HemisphereLight(0xffffff, 0xc3b59e, 1.8)` plus one `DirectionalLight(0xffffff, 1.4)` at (-3, 12, 8), default view at azimuth 25°, elevation 28°, distance 23.5 (`VIEW` in `main.js`, matched to the owner's preferred angle); the collection opens at 220% on desktop, 155% on phones, single places at 145%. Front faces (+z) read a little wider than side faces (+x). A building module owns none of these. It returns a `THREE.Group` and never touches the DOM.
 
 **Materials**
 
@@ -112,7 +112,7 @@ Ways to stay in budget: `sphere(…, [8, 6])` for leaves and small fruit, `cylin
 - Raised floor: a stone plinth with a cream top lip, from 0.155 to the shop floor.
 - `createIllustrationShadow(group)` projects every opaque `BoxGeometry`/`ExtrudeGeometry` (volume > 0.025 m³) to `x − 0.6·y, z + 0.27·y` at y = −0.355, colour `#92A6CF`. For buildings on the raised paved base the collection lifts it to `y = 0.35`; add the new id to that list in `collection.js`. The shadow therefore falls back-left; keep the main façade facing +z and the side entrance facing +x so both stay in light.
 - Only boxes and extrusions cast this shadow, so a cylinder-heavy object (a tree, a pot) casts none — that is intended.
-- **The shadow must be seen.** It is drawn just below the page (`y ≈ 0`), so wherever it falls on the building's own paved base it is hidden under the paving. A building whose shadow falls mostly on its own forecourt (Pizza Piccola's terrace) sets `shadowFloor: [{ x0, x1, z0, z1, y: GROUND + 0.004 }]` on the model (one entry per floor level); the collection then adds `floorShadow()` (`series/src/shadowFloor.js`), the same projection clipped to each rectangle and cast only by parts taller than 0.5 m, so the paving and curbs don't shade themselves.
+- **The shadow must be seen.** It is drawn just below the page (`y ≈ 0`), so wherever it falls on the building's own paved base it is hidden under the paving. A building whose shadow falls mostly on its own forecourt (Pizza Piccola's terrace) sets `shadowFloor: [{ x0, x1, z0, z1, y: GROUND + 0.004 }]` on the model (one entry per floor level); the collection then adds `floorShadow()` (`web/src/shadowFloor.js`), the same projection clipped to each rectangle and cast only by parts taller than 0.5 m, so the paving and curbs don't shade themselves.
 - Light comes from the back-right: faces pointing +x and +z are lit, shadows go to −x and +z. Keep that consistent; never add a second shadow direction.
 
 ## 6 Print (atlas)

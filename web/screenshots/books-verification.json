@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-28T03:45:22.725Z",
+  "checks": [
+    "#books deep link, contextual controls, mint by default",
+    "1 chalkboard A-frame(s) standing on the ground as a Λ",
+    "default, front, right and rooftop views",
+    "double door from the button and from a click on the model",
+    "open a book from the button and from a click on the model",
+    "interior lights off and on",
+    "see-through interior",
+    "five colour schemes (building only)",
+    "labels, 7-place overview, caption navigation",
+    "390 px without overflow"
+  ],
+  "consoleErrors": []
+}

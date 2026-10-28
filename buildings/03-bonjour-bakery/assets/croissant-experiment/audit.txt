@@ -1,0 +1,1 @@
+{'params': {'width': 1.0, 'depth': 0.5, 'height': 0.3, 'layers': 7, 'fold': 0.24, 'skew': 0.55, 'tip': 0.13, 'sweep_deg': 100, 'rings': 110, 'around': 28, 'cap_rings': 7, 'subdiv': 1, 'seed': 11}, 'verts': 14058, 'faces': 14056, 'non_manifold_edges': 0, 'loose_verts': 0, 'signed_volume': 0.05796, 'self_intersections': 0, 'width': 1.0, 'depth': 0.48, 'height': 0.274}

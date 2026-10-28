@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-28T03:44:40.975Z",
+  "checks": [
+    "#flowers deep link, contextual controls",
+    "door from the button and from a click on the model",
+    "glasshouse vent, see-through, bouquet pickup",
+    "five palettes",
+    "labels, 4-place overview and caption navigation",
+    "390 px: flower shop and 4-place stacked overview without overflow"
+  ],
+  "consoleErrors": []
+}

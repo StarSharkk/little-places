@@ -1,10 +1,10 @@
 # Adding a building to the collection
 
-The page code is dense one-liners and other work may be in progress in the same files, so integrate by **mirroring the most recent building**: `grep -n "books" series/src/main.js series/src/collection.js series/index.html series/scripts/*.mjs` and add a matching line for the new id next to every hit. Then go through the checklist below to catch what grep misses (counts and copy).
+The page code is dense one-liners and other work may be in progress in the same files, so integrate by **mirroring the most recent building**: `grep -n "books" web/src/main.js web/src/collection.js web/index.html web/scripts/*.mjs` and add a matching line for the new id next to every hit. Then go through the checklist below to catch what grep misses (counts and copy).
 
 ## 1 The model module
 
-Put new buildings in `series/src/<id>/` (no Vite alias needed). Start from `templates/Building.template.js` and `templates/primitives.js`. The factory returns:
+Put new buildings in `buildings/NN-name/` (the next number, kebab-case name), add an alias for it in `web/vite.config.js` (`'@id': relative('../buildings/NN-name/Name.js')`) and import it in `web/src/collection.js` through that alias. Building modules resolve `three` from `web/` thanks to `dedupe: ['three']`, so they need no `node_modules` of their own. Start from `templates/Building.template.js` and `templates/primitives.js`. The factory returns:
 
 ```js
 {
@@ -33,7 +33,7 @@ leaf.userData.action = 'myshopDoor';                          // click target
 
 `finishModel` bakes the static model and each dynamic group separately, so a dynamic group nested inside another dynamic group gets baked twice. See-through shells (front façade, roof) are dynamic too so they can be hidden.
 
-## 2 `series/src/collection.js`
+## 2 `web/src/collection.js`
 
 - `import { createX } from './<id>/X.js';` and `const x = createX();`
 - A definition after the last one: `{id, number:'07', title, native, description, model:x, dynamic:x.dynamic, scale:1.0, pivot, span, width, labels:x.labels}`. `native` is a short Japanese (or local) name, `description` one short sentence.
@@ -41,7 +41,7 @@ leaf.userData.action = 'myshopDoor';                          // click target
 - `item.setColour`: add `else if(item.id==='<id>')x.setPalette(index);`
 - If the building's default scheme isn't swatch 0, set its starting `colourIndex`.
 
-## 3 `series/src/main.js`
+## 3 `web/src/main.js`
 
 - `state`: one boolean per toggle plus an `…Amount` per animated part.
 - `updateActions()`: show the building's buttons only when it is active (`$('#id').hidden = state.active !== '<id>'`), update their label and `aria-pressed`. Add the id to the see-through list if it supports see-through.
@@ -51,7 +51,7 @@ leaf.userData.action = 'myshopDoor';                          // click target
 - Deep links: add the id to the list `select()` accepts from `location.hash`.
 - Per-building text (the stage hint, the footer summary) and any per-index arrays.
 
-## 4 `series/index.html` and `series/src/style.css`
+## 4 `web/index.html` and `web/src/style.css`
 
 - A tab `<button role="tab" id="tab-<id>" data-building="<id>">` with its number.
 - A caption button `data-focus="<id>"` in the collection overview.
@@ -59,16 +59,16 @@ leaf.userData.action = 'myshopDoor';                          // click target
 - Every count and number word: the tab count badge, "Six familiar corners", "SIX PLACES. ONE LITTLE COLLECTION.", the meta description, the "Try it" copy.
 - Check the collection layout at 1440 px and 390 px; if the overview gets crowded, adjust the CSS height rather than shrinking buildings.
 
-**Overview spacing is automatic.** `main.js` measures each place's footprint (shadow included) once and lines them up with the same gap (`RAIL_GAP`) between neighbours, four per page on desktop. Don't hand-tune positions; if a new building looks crowded, its footprint (lamp posts, scooters, shadow) is wider than it needs to be.
+**Overview spacing and rotation are automatic.** `main.js` finds each place's hub (the centre of its model's footprint, shadows excluded) and its turning radius (hub to the farthest footprint corner). Every place turns about its own hub, in the overview and on its own, and owns a slot `2 × radius` wide plus `RAIL_GAP`, so no camera angle can push neighbours together. Don't hand-tune positions or offsets; a building that sits off its model origin is handled by the hub. `npm run check:rotation` turns the camera through 30 angles plus a mouse drag and fails if neighbours overlap or any place drifts while turning.
 
 ## 5 Verification and docs
 
-- `series/scripts/verify-<id>.mjs` from `templates/verify.template.mjs`, plus `"check:<id>"` in `series/package.json`.
+- `web/scripts/verify-<id>.mjs` from `templates/verify.template.mjs`, plus `"check:<id>"` in `web/package.json`.
 - Keep the template's `assertAframes(module, factory)` call with the new building's module and factory name; it rebuilds the model unbaked and checks every chalkboard A-frame.
 - Bump the building count in the other verify scripts (`'00 The collection N'`, "Overview must show N").
 - Root `README.md`: the list of places, the projects table and the interaction summary.
-- Run with the dev server up (`npm run dev` in `series/`, default port 5176): `npm run check`, every `check:*`, then `npm run build`.
+- Run with the dev server up (`npm run dev` in `web/`, default port 5176): `npm run check`, every `check:*`, then `npm run build`.
 
 ## Standard screenshots
 
-Save to `series/screenshots/<id>-*.png`: `desktop` (default view), `front`, `right` (side view), `rooftop` (elevation ≈ 80°), `interior` (see-through, zoom ≈ 2), one per interaction state (`door-open`, `lights-off`…), `labels`, `mobile` (390 × 844). Look at them yourself before reporting.
+Save to `web/screenshots/<id>-*.png`: `desktop` (default view), `front`, `right` (side view), `rooftop` (elevation ≈ 80°), `interior` (see-through, zoom ≈ 2), one per interaction state (`door-open`, `lights-off`…), `labels`, `mobile` (390 × 844). Look at them yourself before reporting.

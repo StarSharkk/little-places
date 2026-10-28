@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-// Template copy of series/src/bookstore/primitives.js. Copy into series/src/<id>/ and keep in step with it.
+// Template copy of buildings/06-little-bookshop/primitives.js. Copy into buildings/NN-name/ and keep in step with it.
 // Same construction vocabulary as the other Little Places buildings: cached geometry + outline flag.
 const cache = new Map();
 export const cached = (key, make) => { if (!cache.has(key)) cache.set(key, make()); return cache.get(key); };

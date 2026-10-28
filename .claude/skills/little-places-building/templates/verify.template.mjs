@@ -1,10 +1,12 @@
-// TEMPLATE (from scripts/verify-pizza.mjs) — copy to series/scripts/verify-<id>.mjs and replace `pizza`, its actions
+// TEMPLATE (from scripts/verify-pizza.mjs) — copy to web/scripts/verify-<id>.mjs and replace `pizza`, its actions
 // and `#pizza-*` buttons with the new building's. Keep the structure: deep link → budget → views → each interaction
 // (button + click on the model) → see-through → palettes → labels → overview (page the gallery) → mobile.
 // Start the dev server, then `npm run check:<id>`.
 import {chromium} from 'playwright';
 import {writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+// building modules live outside web/; Vite serves them through /@fs
+const fsPath=rel=>'/@fs'+fileURLToPath(new URL(rel,import.meta.url));
 const out=name=>fileURLToPath(new URL(`../screenshots/${name}`,import.meta.url));
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1040},deviceScaleFactor:1});
@@ -32,7 +34,7 @@ try{
  assert(info.t<=120000&&info.l<=15000,`Over budget: ${info.t} triangles, ${info.l} outline segments`);
  assert(await page.evaluate(()=>!!__series.items.pizza.model.roof.getObjectByName('Rooftop pizza sign')&&!!__series.items.pizza.model.roof.getObjectByName('Pizza slice')),'Rooftop slice missing');
  checks.push(`#pizza deep link, contextual controls, budget (${info.t} triangles, ${info.l} outline segments)`);
- const nA=await assertAframes('/src/pizza/Pizzeria.js','createPizzeria');checks.push(`${nA} chalkboard A-frame(s) standing on the ground as a Λ`);await snap('pizza-desktop');
+ const nA=await assertAframes(fsPath('../../buildings/07-pizza-piccola/Pizzeria.js'),'createPizzeria');checks.push(`${nA} chalkboard A-frame(s) standing on the ground as a Λ`);await snap('pizza-desktop');
  await page.locator('[data-view="front"]').click();await page.waitForTimeout(300);await snap('pizza-front');
  await page.locator('[data-view="side"]').click();await page.waitForTimeout(300);await snap('pizza-right');
  await page.locator('[data-view="iso"]').click();await page.waitForTimeout(200);

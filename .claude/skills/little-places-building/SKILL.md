@@ -1,11 +1,11 @@
 ---
 name: little-places-building
-description: House style and build workflow for the "Little Places" Three.js building collection (isometric toon buildings with ink outlines, warm palette, paved base, illustrated blue shadow, collection web page in series/). Use this skill whenever the user wants to add a new building/shop/place to the collection, redesign or refine an existing one (café, grocery, bakery, flower shop, dessert shop, bookshop…), asks for something "in the same style as the series", or mentions proportions, palette, outlines, props, interactions or verification for these buildings — even if they only name the shop (e.g. "做一个面包店", "make a ramen stall", "add a 07").
+description: House style and build workflow for the "Little Places" Three.js building collection (isometric toon buildings with ink outlines, warm palette, paved base, illustrated blue shadow, collection web page in web/). Use this skill whenever the user wants to add a new building/shop/place to the collection, redesign or refine an existing one (café, grocery, bakery, flower shop, dessert shop, bookshop…), asks for something "in the same style as the series", or mentions proportions, palette, outlines, props, interactions or verification for these buildings — even if they only name the shop (e.g. "做一个面包店", "make a ramen stall", "add a 07").
 ---
 
 # Little Places building style
 
-Little Places is a set of small isometric shop buildings rendered with Three.js and shown together on one page (`series/`). Every building must look like it was drawn by the same illustrator: flat toon colour, dark ink outlines, a warm limited palette, a cream paved base, a soft blue projected shadow, and a lot of small lived-in detail that never gets noisy.
+Little Places is a set of small isometric shop buildings rendered with Three.js and shown together on one page (`web/`). Every building must look like it was drawn by the same illustrator: flat toon colour, dark ink outlines, a warm limited palette, a cream paved base, a soft blue projected shadow, and a lot of small lived-in detail that never gets noisy.
 
 The standard below blends the two hands that built the series: the **GPT buildings** (Sakura Café, Yamada Grocery — clean silhouettes, big colour blocks, print on a texture atlas, light geometry) and the **Claude buildings** (Bonjour Bakery, Hanaya Flowers, The Little Bookshop — human-scale proportions, shared paved base, real interiors, grounded props, more interactions). Take restraint from the first and life from the second.
 
@@ -13,11 +13,12 @@ The standard below blends the two hands that built the series: the **GPT buildin
 
 | Path | What it is |
 | --- | --- |
-| `series/` | The collection page: `src/collection.js` (definitions), `src/main.js` (state, buttons, animation), `index.html`, `src/style.css`, `scripts/verify*.mjs` |
-| `series/src/bookstore/` | **The reference implementation.** Copy its structure for a new building |
-| `series/src/bakery/`, `flower shop/src/shop/` | Other buildings in the current standard |
-| `coffee store/`, `grocery/` | GPT originals; `grocery/src/optimize.js` holds the shared `finishModel` + `createIllustrationShadow` |
-| `coffee store_claude/` | Sakura Sweets — an older self-contained kit (`prebaked`), not a template |
+| `web/` | The collection page: `src/collection.js` (definitions), `src/main.js` (state, buttons, animation), `index.html`, `src/style.css`, `scripts/verify*.mjs` |
+| `buildings/06-little-bookshop/` | **The reference implementation.** Copy its structure for a new building |
+| `buildings/03-bonjour-bakery/`, `buildings/04-hanaya-flowers/src/shop/` | Other buildings in the current standard |
+| `buildings/01-sakura-cafe/`, `buildings/02-yamada-grocery/` | GPT originals; `buildings/02-yamada-grocery/src/optimize.js` holds the shared `finishModel` + `createIllustrationShadow` |
+| `buildings/05-sakura-sweets/` | Sakura Sweets — an older self-contained kit (`prebaked`), not a template |
+| `.claude/skills/little-places-building/` | This skill (Claude Code loads it from here); the packaged copy for claude.ai is `skill/little-places-building.skill` |
 
 Read `references/style.md` before modelling, `references/integration.md` before touching the page, and `references/pitfalls.md` before calling anything finished. `templates/` has starter files (primitives, building skeleton, outline hull, A-frame chalkboard, verify script).
 
@@ -59,5 +60,5 @@ These are the rules that past work broke. The reasoning is in the reference file
 
 - Default, front, side, roof (top-down) and interior (see-through) screenshots look finished, plus 390 px mobile with no horizontal overflow.
 - Every interaction works from its button and from a click on the model; reduced-motion snaps instead of animating.
-- `npm run check`, every `check:<building>` script and `npm run build` pass with zero console errors.
+- `npm run check`, every `check:<building>` script, `check:navigation`, `check:rotation` and `npm run build` pass with zero console errors.
 - The final report says what was verified and what was not (e.g. no real-device or frame-rate test).

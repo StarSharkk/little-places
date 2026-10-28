@@ -28,7 +28,7 @@ Each entry: what went wrong → why it matters → what to do instead.
 - **Floors drifting apart.** The early buildings used beige paving `#E7DEC9` with dark joints, the dessert shop white `#FBF7EB` with soft joints; side by side they looked like different towns. → One paving colour for all outdoor floors, joints never inked.
 
 - **Shadow lost under its own paving** (Pizza Piccola's terrace). → Add `shadowFloor` so the shadow is drawn on the paving; cast it only from parts taller than 0.5 m, or the paving shades the whole forecourt blue.
-- **Overview crowding** with a fixed 11.4 m step: wide places (the dessert shop's corner, the pizzeria's terrace) overlapped their neighbours. → Spacing now comes from measured footprints.
+- **Overview crowding** — twice. A fixed 11.4 m step let wide places overlap; spacing by the footprint measured along the screen fixed the default view but changed with every drag, so places slid into each other when rotated, and each one swung around its model origin instead of its middle. → Each place turns about its footprint centre and owns a rotation-proof slot (its turning circle); `check:rotation` guards it.
 
 - **Round shapes without outlines** (the original Sakura Café tree). Edge lines skip smooth surfaces, so its pink balls had no ink while every wall did, and it looked flatter than the Sweets tree. → Hull every feature-sized round form (`templates/outline.js`).
 - **Hull material never resized** → a hull whose `resolution` is never set draws lines of the wrong width. Expose it in `outlineMaterials` so the page updates it with the edge lines.
@@ -46,4 +46,4 @@ Each entry: what went wrong → why it matters → what to do instead.
 
 - **Claiming success without looking.** The user asked to be told only what was actually verified. → Look at each screenshot, run every check, and list what was not verified.
 - **Touching other buildings.** The user does not want other parts of the project rebuilt or deleted for a new task. → Integration changes to shared files are additive; anything else needs a question first.
-- **Committing unrelated work.** Other sessions may be editing `series/` at the same time. → Stage only your own hunks; leave unrelated changes untouched and mention them.
+- **Committing unrelated work.** Other sessions may be editing `web/` at the same time. → Stage only your own hunks; leave unrelated changes untouched and mention them.

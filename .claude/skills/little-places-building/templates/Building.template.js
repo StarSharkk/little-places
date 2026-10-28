@@ -1,5 +1,5 @@
-// Starter for a new Little Places building. Copy to series/src/<id>/<Name>.js, rename createShop,
-// then split into Architecture / Interior / Props / Atlas modules as it grows (see series/src/bookstore/).
+// Starter for a new Little Places building. Copy to buildings/NN-name/<Name>.js, rename createShop,
+// then split into Architecture / Interior / Props / Atlas modules as it grows (see buildings/06-little-bookshop/).
 import * as THREE from 'three';
 import { group, box, plate, rod, cylinder, sphere, rectPath, wallWithHoles, PavedBase } from './primitives.js';
 
