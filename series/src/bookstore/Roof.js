@@ -9,7 +9,8 @@ export function Roof(root, m, atlas, extras) {
   const w = X1 - X0, d = Z1 - Z0, cx = (X0 + X1) / 2, cz = (Z0 + Z1) / 2;
   box(g, w + 0.06, 0.05, d + 0.06, m.frame, [cx, TOP + 0.025, cz]);
   box(g, w + 0.2, 0.15, d + 0.2, m.cream, [cx, TOP + 0.125, cz]);
-  box(g, w + 0.24, 0.04, d + 0.24, m.cream, [cx, TERRACE - 0.02, cz]);
+  box(g, w + 0.24, 0.04, d + 0.24, m.cream, [cx, TERRACE - 0.03, cz]);
+  box(g, w - 0.1, 0.012, d - 0.1, m.deck, [cx, TERRACE - 0.004, cz], false);  // terrace floor in the deck colour
   // terrace floor: cream tiles with soft joints
   for (let x = X0 + 0.5; x < X1 - 0.2; x += 0.5) rod(g, [x, TERRACE + 0.002, Z0 + 0.15], [x, TERRACE + 0.002, Z1 - 0.15], 0.004, m.stone, 4);
   for (let z = Z0 + 0.5; z < Z1 - 0.2; z += 0.5) rod(g, [X0 + 0.15, TERRACE + 0.002, z], [X1 - 0.15, TERRACE + 0.002, z], 0.004, m.stone, 4);

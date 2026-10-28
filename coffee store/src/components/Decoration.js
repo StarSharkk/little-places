@@ -9,8 +9,10 @@ import {
   arch,
   extrude,
   part,
+  geometry,
 } from "./primitives.js";
 import { Window } from "./architecture.js";
+import { hull } from "./outline.js";
 export function FlowerPot(p, m, pos, scale = 1, flowers = false) {
   const g = group(p, pos);
   g.scale.setScalar(scale);
@@ -176,10 +178,14 @@ export function Blackboard(p, m, pos) {
 function Tree(p, m, pos) {
   const g = group(p, pos);
   g.name = "Potted Sakura";
-  cylinder(g, 0.5, 0.36, 0.66, m.trim, [0, 0.33, 0], 12);
-  cylinder(g, 0.53, 0.53, 0.1, m.accent, [0, 0.67, 0], 12);
+  // every round part carries an ink silhouette (m.hull), like the other buildings' trees
+  const inked = (mesh) => (hull(mesh, m.hull), mesh);
+  const blossom = (r, mat, at) =>
+    inked(part(g, geometry(`blossom${r}`, () => new THREE.IcosahedronGeometry(r, 3)), mat, at, false));
+  inked(cylinder(g, 0.5, 0.36, 0.66, m.trim, [0, 0.33, 0], 24));
+  inked(cylinder(g, 0.53, 0.53, 0.1, m.accent, [0, 0.67, 0], 24));
   cylinder(g, 0.46, 0.46, 0.03, m.soil, [0, 0.73, 0]);
-  rod(g, [0, 0.7, 0], [0.02, 2.7, 0], 0.065, m.roof);
+  inked(rod(g, [0, 0.7, 0], [0.02, 2.7, 0], 0.065, m.roof));
   const tips = [
     [-0.62, 2.6, 0.03],
     [0.46, 3.02, 0.1],
@@ -188,17 +194,18 @@ function Tree(p, m, pos) {
     [0.6, 2.61, -0.36],
   ];
   for (const t of tips) {
-    rod(g, [0.02, 1.6, 0], t, 0.035, m.roof);
+    inked(rod(g, [0.02, 1.6, 0], t, 0.035, m.roof));
     for (let j = 0; j < 5; j++) {
       const a = j * 2.4;
-      const b = ball(g, 0.31 + (j % 2) * 0.07, m.flower, [
+      const b = blossom(0.31 + (j % 2) * 0.07, m.flower, [
         t[0] + Math.cos(a) * 0.24,
         t[1] + Math.sin(j * 2) * 0.21,
         t[2] + Math.sin(a) * 0.24,
       ]);
       b.scale.y = 0.85;
+      b.parent.children.at(-1).scale.y = 0.85; // its hull twin
     }
-    ball(g, 0.22, m.trim, [t[0] - 0.1, t[1] + 0.18, t[2] + 0.13]);
+    blossom(0.22, m.trim, [t[0] - 0.1, t[1] + 0.18, t[2] + 0.13]);
   }
   return g;
 }
@@ -218,10 +225,11 @@ export function addDecorations(root, m, c) {
     box(g, 0.25, 0.1, 0.5, m.trim, [-3.74, -0.015, z]);
   }
   // Restrained expansion joints, not a dense checkerboard.
+  // soft beige joints like the dessert shop's paving, not ink lines
   for (let z = -2.7; z < 4.3; z += 0.9)
-    rod(g, [-3.6, 0.018, z], [4.15, 0.018, z], 0.004, m.soil);
+    rod(g, [-3.6, 0.018, z], [4.15, 0.018, z], 0.006, m.joint).userData.outline = false;
   for (let x = -3.4; x < 4.1; x += 1.3)
-    rod(g, [x, 0.018, -2.7], [x, 0.018, 4.3], 0.004, m.soil);
+    rod(g, [x, 0.018, -2.7], [x, 0.018, 4.3], 0.006, m.joint).userData.outline = false;
   // Roof seams follow the actual pitched plane, spaced like standing-seam roofing.
   for (let x = -w / 2 + 0.18; x < w / 2; x += 0.48)
     for (const sign of [-1, 1])

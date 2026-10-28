@@ -38,7 +38,7 @@ try{
  await page.getByRole('button',{name:'Butter yellow',exact:true}).click();checks.push('five palettes');
  await page.locator('#labels-button').click();await page.waitForTimeout(400);assert(await page.locator('#labels .part-label:not([hidden])').count()>=3,'Labels missing');await snap('flowers-labels');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===6),'Overview must show 6 places');await snap('collection-desktop');
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');await snap('collection-desktop');
  await page.locator('[data-focus="flowers"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='flowers'),'Caption navigation failed');
  checks.push('labels, 4-place overview and caption navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);

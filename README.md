@@ -2,7 +2,7 @@
 
 # Little Places · 建筑小集
 
-An interactive Three.js collection of six little places: **Sakura Café**, **Yamada Grocery**, **Bonjour Bakery**, **Hanaya Flowers**, **Sakura Sweets** and **The Little Bookshop**. All six buildings are real 3D models, displayed with an orthographic camera, illustrated outlines and a warm, limited colour palette.
+An interactive Three.js collection of seven little places: **Sakura Café**, **Yamada Grocery**, **Bonjour Bakery**, **Hanaya Flowers**, **Sakura Sweets**, **The Little Bookshop** and **Pizza Piccola**. All seven buildings are real 3D models, displayed with an orthographic camera, illustrated outlines and a warm, limited colour palette.
 
 ![Building collection](series/screenshots/collection-desktop.png)
 
@@ -35,8 +35,9 @@ The generated `series/dist` contains the model code and can be served independen
 | `flower shop/` | Hanaya Flowers: flower shop with a rooftop glasshouse, standalone viewer and checks |
 | `coffee store_claude/` | Sakura Sweets: corner dessert shop (the same model can be built as a café with `shop: 'cafe'`), standalone viewer |
 | `series/src/bookstore/` | The Little Bookshop: mint bookstore with a furnished interior, side deck and rooftop reading terrace |
+| `series/src/pizza/` | Pizza Piccola: brick pizzeria with a wood-fired oven, takeaway window, fenced terrace, delivery scooter and a giant rooftop slice (built with the `little-places-building` skill) |
 
-The collection supports drag rotation, smooth zoom, five colour presets, labels, turntable, front/side views, café door and menu interactions, and a grocery shutter. The grocery retains its four capsule machines and corrected poster spacing. Bonjour Bakery has a hipped roof with a louvred lantern, a real pastry display, door animation, a roof-and-wall cutaway, pastry visibility and a reversible takeaway-bag interaction (`/#bakery`). Hanaya Flowers adds a door, a glasshouse vent, a bouquet pickup and a cutaway (`/#flowers`). Sakura Sweets has a door and a dessert menu (`/#sweets`). The Little Bookshop has a double door, interior lights, a cutaway, an openable book on the deck lectern and six labels (`/#books`, checked by `npm run check:books`). Keep all project folders side by side: the collection imports them through Vite aliases.
+The collection supports drag rotation, smooth zoom, five colour presets, labels, turntable, front/side views, café door and menu interactions, and a grocery shutter. The grocery retains its four capsule machines and corrected poster spacing. Bonjour Bakery has a hipped roof with a louvred lantern, a real pastry display, door animation, a roof-and-wall cutaway, pastry visibility and a reversible takeaway-bag interaction (`/#bakery`). Hanaya Flowers adds a door, a glasshouse vent, a bouquet pickup and a cutaway (`/#flowers`). Sakura Sweets has a door and a dessert menu (`/#sweets`). The Little Bookshop has a double door, interior lights, a cutaway, an openable book on the deck lectern and six labels (`/#books`, checked by `npm run check:books`). Pizza Piccola has a door, an oven fire you can light or rest (with chimney smoke), a takeaway pizza box that opens, a cutaway and six labels (`/#pizza`, `npm run check:pizza`). Keep all project folders side by side: the collection imports them through Vite aliases.
 
 ## Verification
 

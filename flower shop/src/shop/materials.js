@@ -15,7 +15,7 @@ export function createMaterials() {
     cream: '#FFF8E7', paper: '#F7F3E9', kraft: '#E1BE8C', wood: '#C39564', woodLight: '#E1BE8C', woodDark: '#8F6A48',
     leaf: '#75AC8C', leafLight: '#A4CEA3', leafDeep: '#4F8A6B', soil: '#6A4B3B',
     pink: '#EFA8C4', rose: '#E27A9B', coral: '#EF745F', yellow: '#F6C445', blue: '#91B7EB', lilac: '#B7A5DB', white: '#FFFDF4',
-    tile: '#E7DBC2', paving: '#E7DEC9', joint: '#67574B', terracotta: '#D9805F', steel: '#CDCDBA', steelDark: '#9FA59B', frame: '#FFF8E7',
+    tile: '#E7DBC2', paving: '#FBF7EB', joint: '#D8CBA9', terracotta: '#D9805F', steel: '#CDCDBA', steelDark: '#9FA59B', frame: '#FFF8E7',
   };
   const m = Object.fromEntries(Object.entries(colours).map(([key, color]) => [key, new THREE.MeshToonMaterial({ color, gradientMap: gradient })]));
   m.ink = new THREE.MeshBasicMaterial({ color: '#302B26' });

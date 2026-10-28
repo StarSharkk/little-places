@@ -38,7 +38,10 @@ sun.position.set(-3, 10, 7);
 scene.add(sun);
 const cafe = createCafe();
 scene.add(cafe.group);
-const lineMaterials = finishModel(cafe.group, [cafe.door.leaf, cafe.sign]);
+const lineMaterials = [
+  ...finishModel(cafe.group, [cafe.door.leaf, cafe.sign]),
+  ...cafe.outlineMaterials,
+];
 const ground = new THREE.Mesh(
   new THREE.PlaneGeometry(200, 200),
   new THREE.MeshBasicMaterial({ color: "#F7F3E9" }),

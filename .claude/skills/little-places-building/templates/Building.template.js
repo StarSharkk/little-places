@@ -25,7 +25,7 @@ function createMaterials() {
   gradient.minFilter = gradient.magFilter = THREE.NearestFilter; gradient.needsUpdate = true;
   const colours = {
     ...themes[0], cream: '#F4EAD6', paper: '#FBF5E8', wood: '#C89C70', woodLight: '#DDBA8E', walnut: '#735743',
-    stone: '#E3D6BC', paving: '#E7DEC9', joint: '#67574B', brass: '#D6A34B',
+    stone: '#E3D6BC', paving: '#FBF7EB', joint: '#D8CBA9', brass: '#D6A34B',
     leaf: '#7FAF8A', leafLight: '#A9CFA0', leafDeep: '#5E8F6E', terracotta: '#C9765F', soil: '#6A4B3B',
     interior: '#F1E3C6', floorWood: '#D8B48A',
   };

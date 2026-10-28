@@ -6,7 +6,8 @@
 
 - `Bakery.js`：独立模型入口 `createBakery({ scale, position })`。
 - `Architecture.js`：有真实开口的墙体、可移除屋顶、展示橱窗、曲面条纹棚、铰链门。
-- `StrawberryCake.js`：圆角分层草莓蛋糕、四颗锥形草莓、八个曲面奶油裱花及圆形贴地底座；屋顶装饰独立建模。
+- `RooftopBreads.js`：顺着四坡屋面放置的木托盘，以及圆面包、三峰牛奶吐司和割纹法棍三种独立 3D 屋顶装饰。
+- `StrawberryCake.js`：早期草莓蛋糕屋顶方案的保留模块，当前建筑不引用。
 - `Pastries.js`：参数曲面可颂、法棍、吐司、贝果，以及陈列架中的面包。
 - `Details.js`：烤箱、收银台、包装盒、纸袋、盆栽、黑板和桌椅。
 - `Atlas.js`：一张 2048 × 1024 CanvasTexture 承载招牌、菜单、包装和价签。
@@ -45,4 +46,4 @@ See-through 是结构剖开模式：移除屋顶、上部侧墙及窗玻璃，�
 - 所有街面物件放在铺地面 y = 0.155（`Details.js` 的 `GROUND`），不再悬空。
 - 交互与 API 不变：`door.hinge`、`pickup`、`setPastries`、`setSeeThrough`、`setPalette`、`dynamic`。纸袋的取走位置改到新的小圆桌上。
 
-`scripts/verify-shortcake.mjs` 是早先“只改屋顶蛋糕”任务的检查；蛋糕已移除，这个脚本不再适用。`StrawberryCake.js` 保留在目录中但不再被引用。`npm run check:bakery` 已通过。
+`scripts/verify-shortcake.mjs` 是早先“只改屋顶蛋糕”任务的检查；蛋糕已移除，这个脚本不再适用。当前 `npm run check:bakery` 会检查三种屋顶面包、斜坡托盘、建筑交互和移动端布局。

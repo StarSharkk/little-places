@@ -11,3 +11,20 @@
 }
 
 @media(max-width:650px){ #exhibition[data-mode="bakery"]{height:460px} .action-row:has(#bakery-door:not([hidden])){min-height:100px} }
+
+/* The collection and single-place views share the same calm, edge-mounted navigation. */
+.gallery-arrow{position:absolute;z-index:3;top:48%;display:grid;place-items:center;width:43px;height:43px;padding:0;border:1.2px solid #9F998D;border-radius:50%;background:#F7F3E9EB;box-shadow:0 3px 12px #5F574B12;font-size:18px;line-height:1;transition:transform .2s ease,background .2s ease,opacity .2s ease}
+.gallery-arrow--prev{left:-20px;transform:translateY(-50%)}
+.gallery-arrow--next{right:-20px;transform:translateY(-50%)}
+.gallery-arrow:hover:not(:disabled){background:#EDE5D5}
+.gallery-arrow--prev:hover:not(:disabled){transform:translate(-3px,-50%)}
+.gallery-arrow--next:hover:not(:disabled){transform:translate(3px,-50%)}
+.gallery-arrow:disabled{cursor:default;opacity:.2}
+
+@media(max-width:650px){
+  #exhibition[data-mode="collection"]{height:480px}
+  #exhibition[data-mode="collection"] #scene{bottom:82px}
+  .gallery-arrow{top:46%;width:37px;height:37px;font-size:16px}
+  .gallery-arrow--prev{left:-15px}
+  .gallery-arrow--next{right:-15px}
+}

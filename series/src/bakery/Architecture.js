@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {group,box,plate,rod,tube,mesh,cylinder,sphere,shape,cached} from './primitives.js';
+import {RooftopBreads} from './RooftopBreads.js';
 // Façade zoning shared by every wall: stone skirting, cream wainscot, mint waist band, pale-yellow upper wall.
 export const ZONE={skirt:[.26,.40],wainscot:[.40,1.06],band:[1.06,1.14],sill:1.21};
 const mid=([a,b])=>(a+b)/2,span=([a,b])=>b-a;
@@ -93,21 +94,6 @@ function hipGeometry(W,D,H){
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
  g.setAttribute('uv',new THREE.Float32BufferAttribute(new Array(pos.length/3*2).fill(0),2));g.computeVertexNormals();return g;
 }
-function Lantern(g,m,y){
- const l=group(g,'Louvred roof lantern',[0,y,0]);
- box(l,.74,.3,.74,m.cream,[0,0,0]);box(l,.6,.46,.6,m.wall,[0,.38,0]);
- for(const [x,z] of [[-.3,-.3],[.3,-.3],[-.3,.3],[.3,.3]])box(l,.075,.46,.075,m.cream,[x,.38,z]);
- for(let k=0;k<4;k++){const f=group(l,'Lantern louvres',[0,0,0]);f.rotation.y=k*Math.PI/2;for(let i=0;i<4;i++){const s=box(f,.44,.035,.06,m.trim,[0,.21+i*.09,.3]);s.rotation.x=.45;}}
- box(l,.76,.06,.76,m.cream,[0,.64,0]);
- const cap=mesh(l,cached('lantern-cap',()=>new THREE.ConeGeometry(.6,.4,4)),m.roof,[0,.87,0]);cap.rotation.y=Math.PI/4;
- // finial and a little weathervane whose tail is an ear of wheat
- rod(l,[0,1.05,0],[0,1.42,0],.014,m.brass,8);sphere(l,[.045,.045,.045],m.brass,[0,1.12,0]);
- for(const a of [0,Math.PI/2]){const c=rod(l,[-.16*Math.cos(a),1.24,-.16*Math.sin(a)],[.16*Math.cos(a),1.24,.16*Math.sin(a)],.006,m.ink,4);}
- const vane=group(l,'Weathervane',[0,1.36,0]);vane.rotation.y=-.6;
- rod(vane,[-.26,0,0],[.22,0,0],.009,m.brass,6);const tip=mesh(vane,cached('vane-tip',()=>new THREE.ConeGeometry(.035,.09,6)),m.brass,[.26,0,0],false);tip.rotation.z=-Math.PI/2;
- for(let i=0;i<4;i++)for(const sy of [-1,1]){const e=sphere(vane,[.028,.012,.012],m.brass,[-.2-i*.035,sy*.022,0]);e.rotation.z=sy*.6;}
- return l;
-}
 function Chimney(g,m,x,z){
  const c=group(g,'Oven chimney',[x,0,z]);
  box(c,.44,1.32,.44,m.accent,[0,4.26,0]);box(c,.5,.05,.5,m.cream,[0,4.55,0]);
@@ -140,7 +126,8 @@ export function Roof(root,m,atlas){
  for(const sx of [-1,1])for(const sz of [-1,1])rod(g,[sx*W/2,eave+.025,sz*D/2],[sx*r,eave+H+.015,0],.026,m.roofLine,10);
  for(const sx of [-1,1])sphere(g,[.05,.05,.05],m.roofLine,[sx*(r+.02),eave+H+.015,0]);
  Chimney(g,m,-1.7,-.95);
- Lantern(g,m,eave+H);
+ const breads=RooftopBreads(g,m);
+ g.userData.rooftopBreads=breads.userData;
  return g;
 }
 export function Awning(root,m){

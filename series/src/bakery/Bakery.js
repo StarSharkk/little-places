@@ -23,7 +23,7 @@ export function createBakery(options={}){
  const pickupHome=pickup.position.clone(),pickupAway=new THREE.Vector3(3.05,.955,2.5);
  root.position.set(...config.position);root.scale.setScalar(config.scale);
  const dynamic=[shell,roof,storefront.door.leaf,storefront.glass,pastries,pickup];
- return {group:root,materials,atlas,config,dynamic,door:storefront.door,shell,roof,pastries,pickup,pickupHome,pickupAway,
+ return {group:root,materials,atlas,config,dynamic,outlineMaterials:[materials.breadInk],door:storefront.door,shell,roof,pastries,pickup,pickupHome,pickupAway,
   setPalette(index){const palette=themes[index%themes.length];for(const [key,value]of Object.entries(palette))m[key].color.set(value);m.roofLine.color.set(palette.roof).multiplyScalar(.8);},
   setPastries(visible){pastries.visible=visible;},
   setSeeThrough(value){shell.visible=!value;roof.visible=!value;storefront.glass.visible=!value;},

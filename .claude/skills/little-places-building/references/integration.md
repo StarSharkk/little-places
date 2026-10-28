@@ -12,6 +12,7 @@ Put new buildings in `series/src/<id>/` (no Vite alias needed). Start from `temp
   materials,        // the token materials (the verify script reads colours from here)
   dynamic,          // leaf groups that move or hide: hinge children, see-through shells, the roof
   labels,           // [['Reading Corner', [x, y, z]], …] in model space, 3–6 of them
+  outlineMaterials, // optional: hull materials from templates/outline.js; the collection keeps their resolution updated
   state,            // anything the page needs to read back (lights on, etc.)
   setPalette(i),    // i = swatch index 0–4, recolours building tokens only
   // one setter per interaction, taking an eased amount 0–1 or a boolean:
@@ -58,9 +59,12 @@ leaf.userData.action = 'myshopDoor';                          // click target
 - Every count and number word: the tab count badge, "Six familiar corners", "SIX PLACES. ONE LITTLE COLLECTION.", the meta description, the "Try it" copy.
 - Check the collection layout at 1440 px and 390 px; if the overview gets crowded, adjust the CSS height rather than shrinking buildings.
 
+**Overview spacing is automatic.** `main.js` measures each place's footprint (shadow included) once and lines them up with the same gap (`RAIL_GAP`) between neighbours, four per page on desktop. Don't hand-tune positions; if a new building looks crowded, its footprint (lamp posts, scooters, shadow) is wider than it needs to be.
+
 ## 5 Verification and docs
 
 - `series/scripts/verify-<id>.mjs` from `templates/verify.template.mjs`, plus `"check:<id>"` in `series/package.json`.
+- Keep the template's `assertAframes(module, factory)` call with the new building's module and factory name; it rebuilds the model unbaked and checks every chalkboard A-frame.
 - Bump the building count in the other verify scripts (`'00 The collection N'`, "Overview must show N").
 - Root `README.md`: the list of places, the projects table and the interaction summary.
 - Run with the dev server up (`npm run dev` in `series/`, default port 5176): `npm run check`, every `check:*`, then `npm run build`.

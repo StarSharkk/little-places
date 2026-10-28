@@ -3,11 +3,12 @@ import * as THREE from 'three';
 // bookshop as Butter / Mint / Coral pink / Powder blue / Lavender. Only the building colours change;
 // books, plants and wooden furniture keep their own colours.
 export const themes = [
-  { name: 'Butter yellow', wall: '#F3CF76', frame: '#DDB052', accent: '#D77C68' },
-  { name: 'Mint green',    wall: '#A8CDBB', frame: '#7FB39C', accent: '#D77C68' },
-  { name: 'Coral pink',    wall: '#EBB3A6', frame: '#D58E7E', accent: '#94B9D8' },
-  { name: 'Powder blue',   wall: '#AAC7E0', frame: '#83A8CB', accent: '#F3CF76' },
-  { name: 'Lavender',      wall: '#C5B9DE', frame: '#A497C9', accent: '#F3CF76' },
+  // deck: the rooftop terrace floor, chosen to contrast the wall (yellow walls → a green deck)
+  { name: 'Butter yellow', wall: '#F3CF76', frame: '#DDB052', accent: '#D77C68', deck: '#A8CDBB' },
+  { name: 'Mint green',    wall: '#A8CDBB', frame: '#7FB39C', accent: '#D77C68', deck: '#F4EAD6' },
+  { name: 'Coral pink',    wall: '#EBB3A6', frame: '#D58E7E', accent: '#94B9D8', deck: '#A8CDBB' },
+  { name: 'Powder blue',   wall: '#AAC7E0', frame: '#83A8CB', accent: '#F3CF76', deck: '#F4EAD6' },
+  { name: 'Lavender',      wall: '#C5B9DE', frame: '#A497C9', accent: '#F3CF76', deck: '#F4EAD6' },
 ];
 export const DEFAULT_THEME = 1; // mint
 export const BOOK_COLOURS = ['#D77C68', '#94B9D8', '#F3CF76', '#7FAF8A', '#735743', '#C89C70', '#E9A6B4', '#5F7FA3', '#B5585A', '#E7DCC0', '#8C78B4', '#3F6B5E'];
@@ -18,7 +19,7 @@ export function createMaterials() {
     ...themes[DEFAULT_THEME],
     cream: '#F4EAD6', paper: '#FBF5E8', wood: '#C89C70', woodLight: '#DDBA8E', walnut: '#735743',
     yellow: '#F3CF76', coral: '#D77C68', blue: '#94B9D8', leaf: '#7FAF8A', leafLight: '#A9CFA0', leafDeep: '#5E8F6E',
-    interior: '#F1E3C6', floorWood: '#D8B48A', shelf: '#8A6A50', shelfLight: '#B88F68', stone: '#E3D6BC', paving: '#E7DEC9', joint: '#67574B', brass: '#D6A34B',
+    interior: '#F1E3C6', floorWood: '#D8B48A', shelf: '#8A6A50', shelfLight: '#B88F68', stone: '#E3D6BC', paving: '#FBF7EB', joint: '#D8CBA9', brass: '#D6A34B',
     terracotta: '#C9765F', soil: '#6A4B3B', steel: '#BFC3B8', typewriter: '#5E8F86', fabric: '#E9DCC0', rug: '#C9765F',
   };
   delete colours.name;

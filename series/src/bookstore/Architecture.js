@@ -167,12 +167,13 @@ export function Awning(root, m) {
   const prof = new THREE.Shape();
   prof.moveTo(0, 0); prof.bezierCurveTo(out * 0.4, 0, out * 0.75, -drop * 0.45, out, -drop);
   prof.lineTo(out, -drop - th); prof.bezierCurveTo(out * 0.75, -drop * 0.45 - th, out * 0.4, -th, 0, -th); prof.closePath();
-  extrudeShape(g, prof, len, m.cream, [0, 0, 0]); // shape x runs out over the deck, extruded along the wall
-  // scalloped valance
+  // striped like every awning in the series: cream and coral bands, each extruded along the wall
   const n = 14, sw = len / n;
+  for (let i = 0; i < n; i++) extrudeShape(g, prof, sw, i % 2 ? m.cream : m.coral, [0, 0, -len / 2 + sw * (i + 0.5)]);
+  // scalloped valance, one scallop per stripe
   for (let i = 0; i < n; i++) {
     const s = new THREE.Shape(); s.moveTo(0, 0); s.lineTo(sw, 0); s.lineTo(sw, -0.14); s.absarc(sw / 2, -0.14, sw / 2, 0, -Math.PI, true); s.lineTo(0, 0);
-    const v = extrudeShape(g, s, 0.03, m.cream, [out + 0.01, -drop - th + 0.02, -len / 2 + (i + 1) * sw]); v.rotation.y = Math.PI / 2;
+    const v = extrudeShape(g, s, 0.03, i % 2 ? m.cream : m.coral, [out + 0.01, -drop - th + 0.02, -len / 2 + (i + 1) * sw]); v.rotation.y = Math.PI / 2;
   }
   box(g, 0.035, 0.04, len + 0.02, m.frame, [out + 0.02, -drop - th + 0.03, 0]);
   box(g, 0.08, 0.1, len + 0.1, m.frame, [0.04, 0.0, 0]);

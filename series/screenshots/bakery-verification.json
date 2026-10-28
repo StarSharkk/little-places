@@ -1,18 +1,19 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-27T13:49:00.030Z",
+  "checkedAt": "2026-10-27T18:13:58.734Z",
   "viewports": [
     "1440 × 1040",
     "390 × 844"
   ],
   "initial": {
-    "calls": 95,
-    "triangles": 263670,
+    "calls": 97,
+    "triangles": 297114,
     "textures": 2,
     "orthographic": true
   },
   "checks": [
     "single-building deep link, shared orthographic renderer, contextual controls",
+    "three distinct ink-outlined rooftop breads on a board lying on the roof slope",
     "door raycast and reversible animation",
     "show/hide actual bread meshes",
     "cutaway/restore, take bread animation and bag raycast return",

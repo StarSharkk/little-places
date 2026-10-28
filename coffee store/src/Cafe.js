@@ -3,6 +3,7 @@ import { addDecorations } from "./components/Decoration.js";
 import { defaultConfig, palettes } from "./config.js";
 import { box, group } from "./components/primitives.js";
 import { Roof, Window, Door, Awning, Sign } from "./components/architecture.js";
+import { createHullMaterial } from "./components/outline.js";
 export function createCafe(options = {}) {
   const config = { ...defaultConfig, ...options };
   const root = new THREE.Group();
@@ -13,7 +14,8 @@ export function createCafe(options = {}) {
     ink: "#252525",
     gold: "#D6A34B",
     reflection: "#E2EFE4",
-    paving: "#E7DEC9",
+    paving: "#FBF7EB",
+    joint: "#D8CBA9",
     soil: "#67574B",
     roofLine: "#A6604D",
     leaf: "#6CA887",
@@ -35,6 +37,7 @@ export function createCafe(options = {}) {
     transparent: true,
     opacity: 0.72,
   });
+  m.hull = createHullMaterial();
   const { width: w, depth: d, height: h } = config;
   box(root, w, h - 2.7, d, m.wall, [0, (h + 2.7) / 2, 0]);
   // Ground floor is assembled around actual openings rather than a solid wall behind the door.
@@ -94,6 +97,8 @@ export function createCafe(options = {}) {
   return {
     group: root,
     materials: m,
+    // round-shape silhouettes; keep their resolution in step with the edge lines
+    outlineMaterials: [m.hull],
     config,
     door,
     sign,

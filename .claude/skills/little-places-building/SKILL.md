@@ -19,7 +19,7 @@ The standard below blends the two hands that built the series: the **GPT buildin
 | `coffee store/`, `grocery/` | GPT originals; `grocery/src/optimize.js` holds the shared `finishModel` + `createIllustrationShadow` |
 | `coffee store_claude/` | Sakura Sweets — an older self-contained kit (`prebaked`), not a template |
 
-Read `references/style.md` before modelling, `references/integration.md` before touching the page, and `references/pitfalls.md` before calling anything finished. `templates/` has starter files.
+Read `references/style.md` before modelling, `references/integration.md` before touching the page, and `references/pitfalls.md` before calling anything finished. `templates/` has starter files (primitives, building skeleton, outline hull, A-frame chalkboard, verify script).
 
 ## Workflow
 
@@ -39,14 +39,21 @@ Work in phases and look at a screenshot at the end of each one. Proportion and s
 These are the rules that past work broke. The reasoning is in the reference files.
 
 - **Units are metres at human scale.** Door leaf 2.1–2.2 m, storey 2.9–3.1 m, counter 0.9–0.95 m. Aim for collection `scale: 1.0`; if a building needs 0.8 or 1.1 to sit with the others, its proportions are off.
+- **Chalkboard A-frames come from `templates/ABoard.js`, never hand-built.** The two leaves hinge together at the top and hang down and outwards (Λ), with the hinge at `L·cos(a)` so both feet land on the ground. This has gone wrong in four buildings (floating boards, boards opening into a V); the verify template asserts it.
 - **Ground:** street surface at `y = 0.155` on the shared `PavedBase`; shop floor raised to about `0.5`. Every prop's lowest point touches a surface — check A-boards, easels, crates and stools in a close side view.
 - **Rendering goes through the shared pipeline:** `MeshToonMaterial` with the 3-step gradient, `userData.outline` per mesh, `finishModel` for batching and ink lines, `createIllustrationShadow` for the shadow. Do not add lights, shadow maps, PBR materials or post-processing.
+- **Round shapes are inked too.** Tree canopies, shrubs, trunks, round pots and globes get a constant-pixel ink silhouette via `templates/outline.js` (inverted hull), not just edge lines — see `references/style.md` → Round shapes.
 - **Colours come from tokens.** Building colours (`wall`, `frame`, `accent`, roof if any) change with the five swatches; books, food, plants, wood and metal keep their own colours.
 - **Three tiers of detail:** big masses as flat blocks, mid-size parts as geometry, anything smaller than ~5 cm (lettering, posters, patterns, tiny icons) printed on the atlas.
 - **Moving parts** live in a hinge group whose child leaf group is listed in `dynamic` and carries `userData.action`. A dynamic group must never sit inside another dynamic group.
 - **Budget:** ≤ 120k triangles, ≤ 15k outline segments, roughly ≤ 100 batched meshes per building. Spheres are the usual culprit; pass low segment counts.
 - **The signature element must belong to the building.** A giant croissant on a bakery roof was removed as "too abrupt"; a lantern and chimney replaced it. Prefer architecture over mascots.
-- **Nothing important behind something else** from the default camera (az 45°, el ≈ 32°): signs not crossed by lamps, doors not hidden by awnings, labels anchored on visible parts.
+- **Every building shows its light and shadow.** Toon shading on the faces plus the blue projected shadow falling back-left and slightly forward. If that shadow lands on the building's own forecourt (a terrace, a wide pavement) it must be drawn on the paving too (`shadowFloor`), or the building looks pasted on. See `references/style.md` → Ground and shadow.
+- **Outdoor floors are the dessert shop's white.** Paving `#FBF7EB` with soft beige joints `#D8CBA9` (no ink on the joints), cream curb stones at the edge. Every building, old or new. Don't add roads around buildings unless the user asks.
+- **Awnings are always striped** — two-colour bands (coral and cream by default) with one scallop per stripe on the valance. No plain canopies.
+- **Roof and wall contrast.** A flat roof or roof terrace takes the opposite temperature to the walls: warm walls (butter, rose, terracotta) get a green roof floor, cool walls (mint, blue) a cream or butter one. Put the roof colour in the theme so it changes with the swatches.
+- **Rooftop signs face the camera.** A flat sign or giant prop on the roof turns to the default camera's azimuth (`rotation.y = 25°`) so it faces the viewer instead of showing its edge.
+- **Nothing important behind something else** from the default camera (azimuth 25°, elevation 28°, collection at 220%): signs not crossed by lamps, doors not hidden by awnings, labels anchored on visible parts.
 
 ## Definition of done
 

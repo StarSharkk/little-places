@@ -40,7 +40,7 @@ export function createBookstore(options = {}) {
     setBook(a) { const e = a * a * (3 - 2 * a); book.hinge.rotation.z = Math.PI * (1 - e); },
     setLights(on) { state.lights = on; setInteriorLights(m, on); },
     setSeeThrough(v) { shell.visible = !v; roof.visible = !v; },
-    setPalette(index) { const t = themes[index % themes.length]; for (const key of ['wall', 'frame', 'accent']) m[key].color.set(t[key]); },
+    setPalette(index) { const t = themes[index % themes.length]; for (const key of ['wall', 'frame', 'accent', 'deck']) m[key].color.set(t[key]); },
   };
 }
 export { themes, DEFAULT_THEME, G };

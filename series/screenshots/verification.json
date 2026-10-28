@@ -1,24 +1,24 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-27T13:48:36.069Z",
+  "checkedAt": "2026-10-27T18:15:50.803Z",
   "viewports": [
     "1440 × 1000",
     "390 × 844"
   ],
   "initial": {
-    "calls": 454,
-    "triangles": 1265827,
-    "textures": 25,
-    "azimuth": 45,
-    "elevation": 32.47251629973425
+    "calls": 283,
+    "triangles": 995063,
+    "textures": 17,
+    "azimuth": 25,
+    "elevation": 28
   },
   "checks": [
     "one canvas, three real 3D models",
-    "orthographic 45-degree camera",
+    "orthographic camera at the chosen default angle (azimuth 25°, elevation 28°)",
     "grocery shutter raycast, four capsule machines, poster clearance",
     "café door and sign raycasts, native menu dialog",
     "five palettes on both models, atlas synchronisation, independent state, overview recolouring",
-    "front, side, drag rotation, smooth zoom, exact reset",
+    "front, side, drag rotation, smooth zoom, exact 145% reset",
     "labels, turntable, render on demand",
     "accessible tab keyboard navigation",
     "all mobile layouts, mobile labels and both building actions"

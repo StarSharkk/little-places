@@ -5,7 +5,7 @@ const common = {
   red: '#EF745F', redDark: '#BE5145', steel: '#A9C8BA', glass: '#91B7EB',
   glassLight: '#E8F1FA', dark: '#455875', blue: '#91B7EB', yellow: '#F6C445',
   green: '#9AD5B6', leaf: '#71B18D', soil: '#70604F', wood: '#D5AB77',
-  bottle: '#6CA887', paper: '#F7F3E9', asphalt: '#A8B3C8', curb: '#EEE5D3',
+  bottle: '#6CA887', paper: '#F7F3E9', asphalt: '#A8B3C8', curb: '#FBF7EB',
   line: '#F7F3E9', orange: '#EF745F', roof: '#9AD5B6',
 };
 export const themes = [
