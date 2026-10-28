@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 // Sakura Sweets (the corner dessert shop) inside the collection. Start the dev server, then `npm run check:sweets`.
 import {chromium} from 'playwright';
 import {writeFile} from 'node:fs/promises';
@@ -31,10 +33,10 @@ try{
  await page.getByRole('button',{name:'Butter yellow',exact:true}).click();checks.push('five palettes');
  await page.locator('#labels-button').click();await page.waitForTimeout(400);assert(await page.locator('#labels .part-label:not([hidden])').count()===3,'Labels missing');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');await snap('collection-desktop');
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===10),'Overview must show 10 places');await snap('collection-desktop');
  for(let i=0;i<8&&!(await page.locator('[data-focus="sweets"]').isVisible());i++){await page.locator('#gallery-next').click();await page.waitForTimeout(450);}
- await page.locator('[data-focus="sweets"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='sweets'),'Caption navigation failed');
- checks.push('labels, 5-place overview, caption navigation');
+ await page.locator('#tab-sweets').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='sweets'),'Tab navigation failed');
+ checks.push('labels, 5-place overview, tab navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile overflow');await snap('sweets-mobile');
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Collection mobile overflow');await snap('collection-mobile');
@@ -42,4 +44,5 @@ try{
  assert(errors.length===0,errors.join('\n'));
  const report={passed:true,checkedAt:new Date().toISOString(),checks,consoleErrors:errors};
  await writeFile(out('sweets-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
-}finally{await browser.close();}
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "baseline": {
+    "geometries": 38,
+    "textures": 11,
+    "programs": 7
+  },
+  "final": {
+    "geometries": 38,
+    "textures": 11,
+    "programs": 7
+  },
+  "checks": [
+    "3D café door/sign raycasts",
+    "12 building replacements without geometry/texture growth",
+    "exactly two canvases",
+    "hidden-page pause",
+    "fullscreen fallback and close",
+    "390px resize while original is paused",
+    "original renderer/resources still work"
+  ],
+  "errors": []
+}

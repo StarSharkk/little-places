@@ -28,3 +28,11 @@
   .gallery-arrow--prev{left:-15px}
   .gallery-arrow--next{right:-15px}
 }
+
+/* a pill that cannot be used right now (the porthole while the drum turns) */
+.pill:disabled{opacity:.45;cursor:not-allowed}
+.pill:disabled:hover{background:none;border-color:#A29B8F}
+
+/* Captions share their moving object's position and clip cleanly at the gallery edges. */
+.building-captions{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.building-captions>button{pointer-events:auto}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "original collection at 320%, ten models, caption scroll to isolated Explorer and non-conflicting hash",
+    "details: hover shows one label, click turns and zooms to it, click again returns",
+    "anchored static hover preview; café door and menu; drag, zoom/reset, labels, independent palette/night, turntable",
+    "all ten models individually framed with one stable renderer; all existing dedicated actions, supported cutaways and palettes",
+    "fullscreen, previous/next, page-wheel scrolling, offscreen pause, direct hash restore, 390px/mobile interaction/fullscreen and reduced motion"
+  ],
+  "consoleErrors": []
+}

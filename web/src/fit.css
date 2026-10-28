@@ -1,0 +1,11 @@
+/* Desktop fit: on a 1440 × 810 window the whole collection — header, tabs, actions, stage, colour and view — sits on
+   one screen, and taller windows give the extra height to the stage. Overrides style.css by selector weight (.page …)
+   so the load order of the two files doesn't matter; phones keep style.css's own layout. */
+@media (min-width:651px){
+  .page>header{height:84px}
+  .page .intro{padding:14px 0 12px}
+  .page .building-tabs{padding-bottom:14px}
+  .page .action-row{min-height:56px;padding:8px 0}
+  .page #exhibition{height:clamp(420px,calc(100svh - 352px),660px)}
+  .page .settings{min-height:72px}
+}

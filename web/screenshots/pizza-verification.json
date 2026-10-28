@@ -1,8 +1,8 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-28T03:45:51.975Z",
+  "checkedAt": "2026-10-28T10:19:55.876Z",
   "checks": [
-    "#pizza deep link, contextual controls, budget (109149 triangles, 9192 outline segments)",
+    "#pizza deep link, contextual controls, budget (107717 triangles, 9192 outline segments)",
     "1 chalkboard A-frame(s) standing on the ground as a Λ",
     "default, front, right and rooftop views",
     "door from the button and from a click on the model",
@@ -10,8 +10,9 @@
     "oven fire and chimney smoke off and on",
     "see-through interior, oven click",
     "five colour schemes (building only)",
-    "labels, 7-place overview, caption navigation",
-    "390 px without overflow"
+    "labels, 10-place overview, tab navigation",
+    "390 px without overflow",
+    "chimney smoke animates only while the oven burns"
   ],
   "consoleErrors": []
 }

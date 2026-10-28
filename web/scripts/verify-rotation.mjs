@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 // Rotation: every place turns about its own footprint centre and never runs into its neighbours, whatever the angle.
 // Start the dev server, then `npm run check:rotation`.
 import {chromium} from 'playwright';
@@ -15,7 +17,7 @@ const turn=async(az,el)=>{await page.evaluate(([az,el])=>{const {camera,controls
 // screen-space extent of each visible place's own geometry (shadows excluded) and where its hub lands
 const measure=()=>page.evaluate(()=>{const {items,camera}=__series,r=document.querySelector('#scene').getBoundingClientRect(),res=[];
  for(const [id,item] of Object.entries(items)){if(!item.wrapper.visible)continue;item.wrapper.updateMatrixWorld(true);const V=item.wrapper.position.constructor;let lo=1e9,hi=-1e9;
-  item.model.group.traverse(o=>{if(!o.isMesh||o.isLineSegments2)return;const p=o.geometry.attributes.position,v=new V();for(let i=0;i<p.count;i+=5){v.fromBufferAttribute(p,i).applyMatrix4(o.matrixWorld).project(camera);const x=(v.x+1)/2*r.width;lo=Math.min(lo,x);hi=Math.max(hi,x);}});
+  item.model.group.traverse(o=>{if(!o.isMesh||o.isLineSegments2)return;for(let parent=o;parent;parent=parent.parent)if(parent.name==='TramMotionRoot')return;const p=o.geometry.attributes.position,v=new V();for(let i=0;i<p.count;i+=5){v.fromBufferAttribute(p,i).applyMatrix4(o.matrixWorld).project(camera);const x=(v.x+1)/2*r.width;lo=Math.min(lo,x);hi=Math.max(hi,x);}});
   const h=(item.hub||new V()).clone().multiplyScalar(item.wrapper.scale.x).add(item.wrapper.position).project(camera);
   res.push({id,lo,hi,hub:[(h.x+1)/2*r.width,(1-h.y)/2*r.height]});}
  return res;});
@@ -48,9 +50,10 @@ try{
   let drift=0,start=null;for(const az of [25,115,205,295]){await turn(az,28);const p=(await measure())[0];if(!start)start=p.hub;else drift=Math.max(drift,Math.hypot(p.hub[0]-start[0],p.hub[1]-start[1]));}
   assert(drift<1,`${id} swings off-centre while turning (${drift.toFixed(2)} px)`);
  }
- checks.push('all seven single views turn about their footprint centre');
+ checks.push('all ten single views turn about their footprint centre');
  await page.evaluate(()=>__series.select('collection'));await page.waitForTimeout(500);
  assert(errors.length===0,errors.join('\n'));
  const report={passed:true,checkedAt:new Date().toISOString(),checks,consoleErrors:errors};
  await writeFile(out('rotation-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
-}finally{await browser.close();}
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

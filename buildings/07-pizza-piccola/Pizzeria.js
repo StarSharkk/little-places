@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import { createMaterials, themes } from './materials.js';
 import { createAtlas } from './Atlas.js';
-import { group, sphere, PavedBase } from './primitives.js';
-import { hull } from './outline.js';
+import { PavedBase } from './primitives.js';
 import { G, ROOF_Y, Facade, Door, SideWalls, Base, Roof } from './Building.js';
 import { Interior } from './Interior.js';
 import { StreetDetails, TakeawayBoxes, plant } from './Props.js';
+import { steam } from '../shared/steam.js';
 
-/** Pizza Piccola — independent model; no renderer, DOM, lights or animation of its own. Units: metres. */
+/** Pizza Piccola — independent model; no renderer, DOM or lights; the page drives every motion. Units: metres. */
 export function createPizzeria(options = {}) {
   const root = new THREE.Group(); root.name = 'Pizza Piccola';
   const m = createMaterials(), atlas = createAtlas();
@@ -23,15 +23,14 @@ export function createPizzeria(options = {}) {
   StreetDetails(root, m, atlas);
   const box = TakeawayBoxes(root, m, atlas);
   // wood smoke from the oven chimney while the fire burns
-  const smoke = group(root, 'Chimney smoke', [2.05, ROOF_Y + 1.95, -1.2]);
-  for (const [x, y, s] of [[0.02, 0, 0.13], [0.14, 0.24, 0.16], [0.05, 0.52, 0.12]]) hull(sphere(smoke, [s, s * 0.85, s], m.smoke, [x, y, 0], [14, 10]), m.hull);
+  const chimney = steam(root, m.smoke, { count: 14, origin: [2.05, ROOF_Y + 1.85, -1.2], spread: 0.12, rise: 1.3, size: 0.16, life: 3.6, drift: [-0.35, 0.1] }), smoke = chimney.mesh;
 
   root.position.set(...(options.position ?? [0, 0, 0]));
   const state = { oven: true, seeThrough: false };
   const show = () => { inside.fire.visible = state.oven; smoke.visible = state.oven && !state.seeThrough; };
   return {
     group: root, materials: m, atlas, state, door, box, facade, roof, oven: inside,
-    dynamic: [facade, roof, door.leaf, inside.mouth, inside.fire, smoke, box.lid],
+    dynamic: [facade, roof, door.leaf, inside.mouth, inside.fire, box.lid],
     outlineMaterials: [m.hull, m.pizzaInk],
     // the shadow falls across this building's own wide forecourt, so it is drawn on the paving as well
     shadowFloor: [{ x0: -5.4, x1: 4.4, z0: -2.6, z1: 4.2, y: G.GROUND + 0.004 }],
@@ -39,6 +38,8 @@ export function createPizzeria(options = {}) {
       ['Rooftop Pizza Sign', [-0.75, 6.1, -0.15]], ['Wood-fired Oven', [-1.8, 2.3, -1.0]], ['Pizza Display', [0.1, 2.0, 0.25]],
       ['Takeaway Window', [3.2, 2.45, 0.5]], ['Outdoor Seating', [-3.3, 1.35, 1.6]], ['Delivery Scooter', [3.3, 1.7, 3.15]],
     ],
+    // ambient: the smoke keeps rising while the fire burns and the chimney is in view
+    animate(dt, time) { if (!smoke.visible) return false; chimney.update(time); return true; },
     setDoor(a) { door.hinge.rotation.y = -1.35 * a; },
     setBox(a) { box.hinge.rotation.z = 1.75 * a; },
     setOven(on) { state.oven = on; show(); },

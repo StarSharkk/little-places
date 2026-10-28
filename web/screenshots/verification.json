@@ -1,14 +1,14 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-28T03:54:49.769Z",
+  "checkedAt": "2026-10-28T10:27:28.253Z",
   "viewports": [
     "1440 × 1000",
     "390 × 844"
   ],
   "initial": {
-    "calls": 288,
-    "triangles": 1033297,
-    "textures": 18,
+    "calls": 304,
+    "triangles": 1104732,
+    "textures": 19,
     "azimuth": 25,
     "elevation": 28
   },
@@ -21,7 +21,9 @@
     "front, side, drag rotation, smooth zoom, exact 145% reset",
     "labels, turntable, render on demand",
     "accessible tab keyboard navigation",
-    "all mobile layouts, mobile labels and both building actions"
+    "all mobile layouts, mobile labels and both building actions",
+    "render loop idles when nothing moves",
+    "night mode on and off for all places"
   ],
   "consoleErrors": []
 }

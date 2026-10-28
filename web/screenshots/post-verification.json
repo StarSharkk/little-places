@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-28T13:06:18.905Z",
+  "checks": [
+    "#post deep link, controls, classic default, all named parts present, budget (96956 triangles, 13196 outline segments)",
+    "1 chalkboard A-frame(s) standing on the ground as a Λ",
+    "every street, roof and upstairs prop rests on the paving, a roof, the upstairs floor or the prop below it",
+    "two storeys (upstairs about half the shop floor) over a low wing; the round tower is set into the façade over the door, rises above the roof, hides the middle of the upstairs front from the default camera while both upstairs windows, the door and the sign stay in clear view",
+    "default, front, right, left, back and rooftop views",
+    "double door: button and click, both leaves on their hinges",
+    "send a letter: button and click, glides to the slot, slips in through it (flap moves), hides, runs again",
+    "deliver a parcel: button and click, lifted and carried, window flap opens, in through the window, resets, page idles after",
+    "night mode: shared stage dusk, warm glass hall, lamps, clock and signs lit",
+    "see-through interior",
+    "five colour schemes (building only)",
+    "labels, 10-place overview with paging, tab navigation",
+    "390 px without overflow"
+  ],
+  "consoleErrors": []
+}

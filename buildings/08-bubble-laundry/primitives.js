@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-// Template copy of buildings/06-little-bookshop/primitives.js. Copy into buildings/NN-name/ and keep in step with it.
 // Same construction vocabulary as the other Little Places buildings: cached geometry + outline flag.
 const cache = new Map();
 export const cached = (key, make) => { if (!cache.has(key)) cache.set(key, make()); return cache.get(key); };
@@ -33,7 +32,7 @@ export function sphere(p, scale, m, pos = [0, 0, 0], seg = [20, 14]) {
   const o = mesh(p, cached(`sphere:${seg}`, () => new THREE.SphereGeometry(1, ...seg)), m, pos, false);
   o.scale.set(...scale); return o;
 }
-export function ring(p, r, t, m, pos = [0, 0, 0]) { return mesh(p, cached(`ring:${r}:${t}`, () => new THREE.TorusGeometry(r, t, 10, 40)), m, pos, false); }
+export function ring(p, r, t, m, pos = [0, 0, 0], tubular = 40, radial = 10) { return mesh(p, cached(`ring:${r}:${t}:${tubular}:${radial}`, () => new THREE.TorusGeometry(r, t, radial, tubular)), m, pos, false); }
 export function cone(p, r, h, m, pos = [0, 0, 0], outline = false, seg = 16) { return mesh(p, cached(`cone:${r}:${h}:${seg}`, () => new THREE.ConeGeometry(r, h, seg)), m, pos, outline); }
 
 // ---- arches and panels with real openings ---------------------------------------------------

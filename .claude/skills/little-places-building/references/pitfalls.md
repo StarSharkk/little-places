@@ -4,7 +4,7 @@ Each entry: what went wrong → why it matters → what to do instead.
 
 ## Grounding and proportions
 
-- **A-frame chalkboards, four times** (flower shop and bakery: boards floating; bookshop and pizzeria: leaves hinged at the feet and tilted outwards, so the frame opened into a V). → Props are read as "standing on the street"; one wrong board breaks the illusion for the whole building. → Use `templates/ABoard.js` as is: leaves hinge at the top (`[0, L·cos(a), 0]`), hang down with `rotation.x = −s·a`, feet at y = 0 of the group placed at `GROUND`. The verify template's `assertAframes` fails if the lowest point is off the ground or the feet aren't wider apart than the hinge. Build every other prop from its feet up too, and look at a close side view.
+- **A-frame chalkboards, four times** (flower shop and bakery: boards floating; bookshop and pizzeria: leaves hinged at the feet and tilted outwards, so the frame opened into a V). → Props are read as "standing on the street"; one wrong board breaks the illusion for the whole building. → Use `buildings/shared/ABoard.js` as is: leaves hinge at the top (`[0, L·cos(a), 0]`), hang down with `rotation.x = −s·a`, feet at y = 0 of the group placed at `GROUND`. The verify template's `assertAframes` fails if the lowest point is off the ground or the feet aren't wider apart than the hinge. Build every other prop from its feet up too, and look at a close side view.
 - **Building squeezed small** (Sakura Sweets at `scale: .74`). Its own units were larger than the others, so it was shrunk and then looked meagre. → Mixed scales make doors and people-scale props disagree between buildings. → Model at the proportions in `style.md` and keep `scale` near 1.0.
 - **Shadow hidden under a big base** (Sakura Sweets). A large raised base swallowed the projected shadow. → The blue shadow is part of the series' look. → Keep the base close to the building footprint plus forecourt, and lift the shadow layer with the paved base.
 
@@ -25,6 +25,9 @@ Each entry: what went wrong → why it matters → what to do instead.
 
 ## Code and pipeline
 
+- **Rotating after inking** (`inked(cylinder(…)).rotation.x = …`, pizzeria air unit). The ink shell copies the transform when it is made. → Rotate first: `inked(upright(cylinder(…)))`.
+- **Hero interior on the back wall** (the laundry's first washer row was invisible from the street). → See style.md → Composition.
+
 - **Floors drifting apart.** The early buildings used beige paving `#E7DEC9` with dark joints, the dessert shop white `#FBF7EB` with soft joints; side by side they looked like different towns. → One paving colour for all outdoor floors, joints never inked.
 
 - **Shadow lost under its own paving** (Pizza Piccola's terrace). → Add `shadowFloor` so the shadow is drawn on the paving; cast it only from parts taller than 0.5 m, or the paving shades the whole forecourt blue.
@@ -33,9 +36,10 @@ Each entry: what went wrong → why it matters → what to do instead.
 - **Round shapes without outlines** (the original Sakura Café tree). Edge lines skip smooth surfaces, so its pink balls had no ink while every wall did, and it looked flatter than the Sweets tree. → Hull every feature-sized round form (`templates/outline.js`).
 - **Hull material never resized** → a hull whose `resolution` is never set draws lines of the wrong width. Expose it in `outlineMaterials` so the page updates it with the edge lines.
 - **Dynamic group inside another dynamic group** → baked twice, flickers or double outlines. Hinge (static) → leaf (dynamic) only.
+- **A dynamic part scaled to 0 at rest** (the post office's letter) → NaN in the baked geometry, the part never shows again. Hide it with `visible` instead.
 - **Custom geometry without UVs** → `mergeGeometries` fails when batching with UV'd geometry. Give custom `BufferGeometry` a `uv` attribute.
 - **Inline `//` comment inside a one-line statement** in `collection.js` swallowed the rest of the line and the page returned 500. → The page files are dense one-liners; put comments on their own line.
-- **Captions on other gallery pages.** The overview shows four places per page; a caption on another page is hidden and can't be clicked. → In the verify script, click `#gallery-next` until the caption is visible.
+- **Captions on other gallery pages.** The overview shows a few places per page; a caption on another page is hidden and can't be clicked, and the overview slides between pages. → In the verify script, click `#gallery-next` until it is disabled (or the caption shows), then wait for the caption with `locator.waitFor({ state: 'visible' })`.
 - **Timing in verify scripts** under software GL: fixed waits flake. → Wait with `page.waitForFunction` on the state you expect, and allow ~400 ms after toggling labels.
 - **Clicking a 3D part that the camera can't see** (book click after zooming elsewhere) → reset to the default view first, then project the part's local point to the screen.
 - **Heavy scenes** (bakery 465k → 327k tris, flowers 204k). → Use low sphere segments and fewer outlines; check the budget before polishing.
@@ -45,5 +49,6 @@ Each entry: what went wrong → why it matters → what to do instead.
 ## Process
 
 - **Claiming success without looking.** The user asked to be told only what was actually verified. → Look at each screenshot, run every check, and list what was not verified.
+- **A green check is not a good-looking building.** The kit's first test kiosk passed every automatic check with its TEA sign hidden under the awning. → Checks prove the mechanics; composition (style.md, "nothing important behind something else") is judged on the default screenshot.
 - **Touching other buildings.** The user does not want other parts of the project rebuilt or deleted for a new task. → Integration changes to shared files are additive; anything else needs a question first.
 - **Committing unrelated work.** Other sessions may be editing `web/` at the same time. → Stage only your own hunks; leave unrelated changes untouched and mention them.

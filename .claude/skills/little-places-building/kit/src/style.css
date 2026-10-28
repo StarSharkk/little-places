@@ -1,0 +1,27 @@
+/* The collection page's look, cut down to one stage: cream paper, ink text, monospaced pills. */
+:root { --paper: #F7F3E9; --ink: #2B2622; --line: #D9D0BE; --muted: #8A8174; --accent: #C8553D; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font: 13px/1.4 "SF Mono", "JetBrains Mono", Menlo, monospace; }
+body { display: flex; flex-direction: column; min-height: 100vh; padding: 0 16px; max-width: 1440px; margin: 0 auto; }
+h1 { font: 400 28px/1.1 Georgia, "Times New Roman", serif; margin: 0; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.bar.tools { justify-content: space-between; border-bottom: 0; padding: 6px 0; }
+.group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.row-label { color: var(--muted); font-size: 11px; letter-spacing: .12em; margin-right: 4px; }
+.note { color: var(--muted); font-size: 11px; }
+.pill { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--ink); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.pill[aria-pressed="true"] { background: #EFE2BE; }
+.pill:focus-visible, .swatch:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+select { font: inherit; border: 1px solid var(--ink); border-radius: 999px; padding: 6px 12px; background: transparent; margin-left: auto; }
+#swatches { display: inline-flex; gap: 8px; }
+.swatch { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--ink); cursor: pointer; padding: 0; }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--ink); }
+#stage { position: relative; flex: 1; min-height: 420px; height: 62vh; overflow: hidden; touch-action: none; }
+#stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+#labels { position: absolute; inset: 0; pointer-events: none; }
+.part-label { position: absolute; transform: translate(-6px, -50%); white-space: nowrap; background: rgba(251, 247, 235, .94); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: 10px; }
+.part-label::before { content: "• "; color: var(--accent); }
+#tooltip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); border-radius: 6px; padding: 4px 8px; font-size: 11px; }
+#loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); }
+#loading[hidden], #tooltip[hidden] { display: none; }
+@media (max-width: 650px) { #stage { height: 52vh; min-height: 320px; } h1 { font-size: 22px; } }

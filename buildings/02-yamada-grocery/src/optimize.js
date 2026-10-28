@@ -4,6 +4,11 @@ import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 // Bake static meshes by shared material. Articulated parts remain separate local batches.
+// Parts that change every frame (particles, instanced meshes) set userData.live = true: they are left as they are,
+// neither merged into a batch nor cast into the illustrated shadow.
+const isLive = (o) => { for (let p = o; p; p = p.parent) if (p.userData.live) return true; return false; };
+// Parts inside the walls (userData.noShadow on a group) add nothing to the outline of the projected shadow.
+const noShadow = (o) => { for (let p = o; p; p = p.parent) if (p.userData.noShadow) return true; return false; };
 export function finishModel(root, dynamic = []) {
   const lineMaterials = [];
   root.updateMatrixWorld(true);
@@ -16,6 +21,7 @@ export function finishModel(root, dynamic = []) {
     target.traverse((o) => {
       if (
         !o.isMesh ||
+        isLive(o) ||
         exclude.some((e) => {
           let p = o;
           while (p) {
@@ -97,6 +103,8 @@ export function createIllustrationShadow(root) {
     if (
       !o.isMesh ||
       o.isLineSegments2 ||
+      isLive(o) ||
+      noShadow(o) ||
       o.material.transparent ||
       o.material.map
     )

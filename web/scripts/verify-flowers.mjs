@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 // Hanaya Flowers inside the collection. Start `npm run dev` (5176) or set BASE_URL, then `npm run check:flowers`.
 import {chromium} from 'playwright';
 import {writeFile} from 'node:fs/promises';
@@ -38,9 +40,9 @@ try{
  await page.getByRole('button',{name:'Butter yellow',exact:true}).click();checks.push('five palettes');
  await page.locator('#labels-button').click();await page.waitForTimeout(400);assert(await page.locator('#labels .part-label:not([hidden])').count()>=3,'Labels missing');await snap('flowers-labels');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');await snap('collection-desktop');
- await page.locator('[data-focus="flowers"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='flowers'),'Caption navigation failed');
- checks.push('labels, 4-place overview and caption navigation');
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===10),'Overview must show 10 places');await snap('collection-desktop');
+ await page.locator('#tab-flowers').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='flowers'),'Tab navigation failed');
+ checks.push('labels, 4-place overview and tab navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile overflow');await snap('flowers-mobile');
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Collection mobile overflow');await snap('collection-mobile');
@@ -48,4 +50,5 @@ try{
  assert(errors.length===0,errors.join('\n'));
  const report={passed:true,checkedAt:new Date().toISOString(),checks,consoleErrors:errors};
  await writeFile(out('flowers-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
-}finally{await browser.close();}
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

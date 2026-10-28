@@ -145,15 +145,20 @@ function buildAnnex(kit, group, cfg, G) {
   const { Xb, Zf } = cfg;
   const aw = 2.3, az0 = -1.9, ha = 3.7, t = 0.3;
   const xl = -Xb - aw;
+  // the lean-to roof rises from the front (ha) towards the back by `sa` per metre; the walls follow it up
+  const e = 0.4, sa = 0.26, tt = 0.15, L = Zf - az0, hb = ha + sa * (L - t) - 0.05;   // walls end inside the slab, measured at their inner face
   const front = makeFrame(group, 'AF', [xl, 0, Zf], 0, aw, t);
-  const side = makeFrame(group, 'AS', [xl, 0, az0], -Math.PI / 2, Zf - az0, t);
+  const side = makeFrame(group, 'AS', [xl, 0, az0], -Math.PI / 2, L, t);
+  const back = makeFrame(group, 'AB', [-Xb, 0, az0], Math.PI, aw, t);
 
   const fspec = { kind: 'arch', comp: 'arch', u: 0.5, w: 1.3, y0: 1.0, y1: 2.9, shutters: false, box: true };
   wallPanel(kit, front, [[0, 0], [aw, 0], [aw, ha], [0, ha]], [openingPath(fspec)]);
   addWindow(kit, front, fspec);
   const sspec = { kind: 'rect', comp: 'display', u: 1.0, w: 1.5, y0: 1.2, y1: 2.8, bulkhead: false };
-  wallPanel(kit, side, [[0, 0], [Zf - az0, 0], [Zf - az0, ha], [0, ha]], [openingPath(sspec)]);
+  // side wall: a sloped top under the roof (its back end is the high side), and a closed back wall below the high eave
+  wallPanel(kit, side, [[0, 0], [L, 0], [L, ha - 0.05], [0, hb]], [openingPath(sspec)]);
   addWindow(kit, side, sspec);
+  wallPanel(kit, back, [[0, 0], [aw, 0], [aw, hb], [0, hb]], []);
 
   // core + plinth
   kit.part(group, 'wallDeep', new THREE.BoxGeometry(aw - 0.25, ha, Zf - az0 - 0.25), { p: [xl + aw / 2 + 0.15, ha / 2, (Zf + az0) / 2 - 0.1], line: 'none' });
@@ -161,7 +166,6 @@ function buildAnnex(kit, group, cfg, G) {
     { p: [xl + aw / 2, 0, (Zf + az0) / 2], line: 'outer' });
 
   // lean-to roof
-  const e = 0.4, sa = 0.26, tt = 0.15;
   const shape = polyPath(THREE.Shape, [[xl - e, -(az0 - e)], [-Xb + 0.0, -(az0 - e)], [-Xb + 0.0, -(Zf + e)], [xl - e, -(Zf + e)]]);
   const slab = extrude(shape, tt, 0.015);
   slab.rotateX(-Math.PI / 2);
@@ -177,9 +181,10 @@ function buildAnnex(kit, group, cfg, G) {
   kit.beam(group, 'trim', [xl - e - 0.035, yTop(Zf + e) - 0.14, Zf + e], [xl - e - 0.035, yTop(az0 - e) - 0.14, az0 - e], 0.26, 0.07, { line: 'mid' });
   kit.part(front.g, 'trim', new THREE.BoxGeometry(aw + 0.12, 0.2, 0.16), { p: [aw / 2, ha - 0.1, 0.08], line: 'mid' });
   kit.part(side.g, 'trim', new THREE.BoxGeometry(Zf - az0 + 0.12, 0.2, 0.16), { p: [(Zf - az0) / 2, ha - 0.1, 0.08], line: 'mid' });
+  kit.part(back.g, 'trim', new THREE.BoxGeometry(aw + 0.12, 0.2, 0.16), { p: [aw / 2, ha - 0.1, 0.08], line: 'mid' });
   kit.part(front.g, 'trim', new THREE.BoxGeometry(aw + 0.1, 0.16, 0.1), { p: [aw / 2, 0.58, 0.05], line: 'mid' });
 
   const casterPoints = [];
-  for (const x of [xl - e, -Xb]) for (const z of [az0 - e, Zf + e]) casterPoints.push([x, 0, z], [x, ha + 0.2, z]);
-  return { frames: { front, side }, casterPoints, xl, az0, ha, aw };
+  for (const x of [xl - e, -Xb]) for (const z of [az0 - e, Zf + e]) casterPoints.push([x, 0, z], [x, yTop(z), z]);   // the shadow follows the sloping roof
+  return { frames: { front, side, back }, casterPoints, xl, az0, ha, aw };
 }

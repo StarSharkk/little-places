@@ -3,8 +3,8 @@ import { createHullMaterial } from './outline.js';
 // Swatch order (Butter, Pistachio, Rose, Blue, Terracotta). Only the building colours change: brick wall,
 // brick accents, roof membrane, window frames and the door. Awnings, pizza, wood and plants keep their own.
 export const themes = [
-  // walls as the bookshop's; the roof contrasts the wall: warm walls get a green roof, cool walls a butter one
-  { wall: '#F3CF76', wallShade: '#E2B65C', roof: '#A8CDBB', frame: '#7FB39C', door: '#E0715B' },
+  // Default roof terrace uses warm orange; other swatches retain their contrasting roofs.
+  { wall: '#F3CF76', wallShade: '#E2B65C', roof: '#E7A16C', frame: '#7FB39C', door: '#E0715B' },
   { wall: '#A8CDBB', wallShade: '#8EBBA6', roof: '#F3CF76', frame: '#5E9C7C', door: '#E0715B' },
   { wall: '#EBB3A6', wallShade: '#DD9A8B', roof: '#A8CDBB', frame: '#7FB39C', door: '#C9584A' },
   { wall: '#AAC7E0', wallShade: '#8FB1D2', roof: '#F3CF76', frame: '#6F98C9', door: '#E0715B' },

@@ -1,10 +1,10 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-28T03:51:28.264Z",
+  "checkedAt": "2026-10-28T10:26:55.728Z",
   "checks": [
-    "overview: 30 angles, closest neighbours 26 px apart at worst, hubs fixed (drift 0.00 px)",
+    "overview: 30 angles, closest neighbours 24 px apart at worst, hubs fixed (drift 0.00 px)",
     "mouse drag in the overview: places turn in place without overlapping",
-    "all seven single views turn about their footprint centre"
+    "all ten single views turn about their footprint centre"
   ],
   "consoleErrors": []
 }

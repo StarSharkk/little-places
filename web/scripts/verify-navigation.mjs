@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
 
@@ -10,7 +12,7 @@ const assert=(value,message)=>{if(!value)throw new Error(message);};
 try{
  await page.goto((process.env.BASE_URL||'http://127.0.0.1:5176/')+'#collection',{waitUntil:'load'});
  await page.waitForFunction(()=>window.__series);await page.waitForTimeout(250);
- assert(await page.evaluate(()=>Math.abs(__series.camera.zoom-2.2)<.001),'Collection did not open at 220%');
+ assert(await page.evaluate(()=>Math.abs(__series.camera.zoom-3.2)<.001),'Collection did not open at 320%');
  assert(await page.getByRole('button',{name:'Previous buildings'}).isDisabled(),'Collection previous button should begin disabled');
  assert(!await page.getByRole('button',{name:'Next buildings'}).isDisabled(),'Collection next button should begin enabled');
  await page.screenshot({path:new URL('navigation-collection-start.png',output).pathname,fullPage:true});
@@ -37,12 +39,13 @@ try{
  assert(await page.evaluate(()=>Math.abs(__series.camera.zoom-1.45)<.001),'Single building navigation changed the default zoom');
 
  await page.setViewportSize({width:390,height:844});
- await page.getByRole('tab',{name:'00 The collection 7',exact:true}).click();await page.waitForTimeout(200);
+ await page.getByRole('tab',{name:'00 The collection 10',exact:true}).click();await page.waitForTimeout(200);
  assert(await page.evaluate(()=>Math.abs(__series.camera.zoom-1.55)<.001),'Mobile collection did not open at 155%');
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile gallery caused horizontal page overflow');
  await page.getByRole('button',{name:'Next buildings'}).click();await page.waitForTimeout(850);
  assert(await page.evaluate(()=>__series.state.collectionPage===1),'Mobile collection arrow did not advance one place');
  await page.screenshot({path:new URL('navigation-collection-mobile.png',output).pathname,fullPage:true});
  assert(errors.length===0,errors.join('\n'));
- console.log(JSON.stringify({passed:true,checks:['220% collection default (155% on phones)','145% single default','desktop collection glide and endpoints','single-place next navigation','mobile one-place gallery','no console errors']},null,2));
-}finally{await browser.close();}
+ console.log(JSON.stringify({passed:true,checks:['320% collection default (155% on phones)','145% single default','desktop collection glide and endpoints','single-place next navigation','mobile one-place gallery','no console errors']},null,2));
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

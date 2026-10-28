@@ -1,10 +1,9 @@
-// Template: the series' chalkboard A-frame (used by the flower shop, bookshop and pizzeria).
-// Copy into the building's Props module; needs group/box/rod from primitives and an atlas cell called 'board'.
+// The series' chalkboard A-frame, from the skill template (templates/ABoard.js).
 import { group, box, rod } from './primitives.js';
 
-export // Chalkboard A-frame. The two leaves hinge together at the TOP and hang down and outwards, so the board reads as
+// Chalkboard A-frame. The two leaves hinge together at the TOP and hang down and outwards, so the board reads as
 // a Λ and both feet land on the ground: hinge height = L·cos(a). (Hinging at the feet opens it into a V.)
-function ABoard(p, m, atlas, pos, turn, { L = 1.0, a = 0.2, w = 0.65 } = {}) {
+export function ABoard(p, m, atlas, pos, turn, { L = 1.0, a = 0.2, w = 0.65 } = {}) {
   const g = group(p, 'Chalkboard A-frame', pos); g.rotation.y = turn;
   const H = L * Math.cos(a);
   for (const s of [1, -1]) {

@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 // Pizza Piccola inside the collection. Start the dev server, then `npm run check:pizza`.
 import {chromium} from 'playwright';
 import {writeFile} from 'node:fs/promises';
@@ -68,14 +70,24 @@ try{
  await page.locator('#labels-button').click();await page.waitForTimeout(400);
  assert(await page.locator('#labels .part-label:not([hidden])').count()===6,'Six labels expected');await snap('pizza-labels');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===10),'Overview must show 10 places');
  for(let i=0;i<8&&!(await page.locator('[data-focus="pizza"]').isVisible());i++){await page.locator('#gallery-next').click();await page.waitForTimeout(450);}
- await page.locator('[data-focus="pizza"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='pizza'),'Caption navigation failed');
- checks.push('labels, 7-place overview, caption navigation');
+ await page.locator('#tab-pizza').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='pizza'),'Tab navigation failed');
+ checks.push('labels, 10-place overview, tab navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile overflow');await snap('pizza-mobile');
  checks.push('390 px without overflow');
+ // ambient: chimney smoke rises (the page keeps drawing) while the oven burns, and stops when it rests
+ await page.evaluate(()=>__series.select('pizza'));await page.waitForTimeout(800);
+ assert(await page.evaluate(()=>{const s=__series.items.pizza.wrapper.getObjectByName('Steam');return !!s&&s.isInstancedMesh&&s.count===14;}),'Smoke must stay one live instanced mesh');
+ const a0=await page.evaluate(()=>__series.frames);await page.waitForTimeout(700);
+ assert(await page.evaluate(a0=>__series.frames>a0+5,a0),'Smoke is not animating');
+ await page.locator('#pizza-oven').click();await page.waitForTimeout(400);
+ const a1=await page.evaluate(()=>__series.frames);await page.waitForTimeout(700);
+ assert(await page.evaluate(a1=>__series.frames===a1,a1),'The page keeps drawing after the fire is out');
+ await page.locator('#pizza-oven').click();checks.push('chimney smoke animates only while the oven burns');
  assert(errors.length===0,errors.join('\n'));
  const report={passed:true,checkedAt:new Date().toISOString(),checks,consoleErrors:errors};
  await writeFile(out('pizza-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
-}finally{await browser.close();}
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

@@ -13,8 +13,14 @@
     "check:sweets": "node scripts/verify-sweets.mjs",
     "check:books": "node scripts/verify-books.mjs",
     "check:pizza": "node scripts/verify-pizza.mjs",
+    "check:laundry": "node scripts/verify-laundry.mjs",
+    "check:post": "node scripts/verify-post.mjs",
     "check:navigation": "node scripts/verify-navigation.mjs",
-    "check:rotation": "node scripts/verify-rotation.mjs"
+    "check:tram": "node scripts/verify-tram.mjs",
+    "check:rotation": "node scripts/verify-rotation.mjs",
+    "check:explorer": "node scripts/verify-explorer.mjs && node scripts/verify-explorer-lifecycle.mjs",
+    "previews:explorer": "node scripts/generate-explorer-previews.mjs",
+    "check:explorer-layout": "node scripts/verify-explorer-layout.mjs"
   },
   "dependencies": {
     "three": "0.180.0"

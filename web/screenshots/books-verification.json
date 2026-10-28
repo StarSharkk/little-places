@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-28T03:45:22.725Z",
+  "checkedAt": "2026-10-28T10:19:25.916Z",
   "checks": [
     "#books deep link, contextual controls, mint by default",
     "1 chalkboard A-frame(s) standing on the ground as a Λ",
@@ -10,7 +10,7 @@
     "interior lights off and on",
     "see-through interior",
     "five colour schemes (building only)",
-    "labels, 7-place overview, caption navigation",
+    "labels, 10-place overview, tab navigation",
     "390 px without overflow"
   ],
   "consoleErrors": []

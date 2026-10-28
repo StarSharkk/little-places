@@ -71,10 +71,11 @@ try{
  await page.locator('#labels-button').click();await page.waitForTimeout(400);
  assert(await page.locator('#labels .part-label:not([hidden])').count()===6,'Six labels expected');await snap('pizza-labels');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');
- for(let i=0;i<8&&!(await page.locator('[data-focus="pizza"]').isVisible());i++){await page.locator('#gallery-next').click();await page.waitForTimeout(450);}
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===Object.keys(__series.items).length),'Overview must show every place');
+ for(let i=0;i<12&&!(await page.locator('[data-focus="pizza"]').isVisible())&&!(await page.locator('#gallery-next').isDisabled());i++){await page.locator('#gallery-next').click();await page.waitForTimeout(450);}
+ await page.locator('[data-focus="pizza"]').waitFor({state:'visible',timeout:5000});
  await page.locator('[data-focus="pizza"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='pizza'),'Caption navigation failed');
- checks.push('labels, 7-place overview, caption navigation');
+ checks.push('labels, overview, caption navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile overflow');await snap('pizza-mobile');
  checks.push('390 px without overflow');

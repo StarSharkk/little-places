@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "geometry": {
+    "triangles": 44462,
+    "lines": 10196,
+    "clipped": true,
+    "platformClearance": 2.0300000000000002
+  },
+  "palette": [
+    [
+      "d97755",
+      "a2cdb6",
+      "f6c445",
+      "f6e3af"
+    ],
+    [
+      "669783",
+      "c7d9ae",
+      "688e79",
+      "f4e7c7"
+    ],
+    [
+      "c88592",
+      "afcdbd",
+      "b77a8d",
+      "f7e5cc"
+    ],
+    [
+      "7898b5",
+      "b8d8d3",
+      "7299b0",
+      "f2e6c9"
+    ],
+    [
+      "c97254",
+      "b8c99f",
+      "b76d55",
+      "f6dbb5"
+    ]
+  ],
+  "checks": [
+    "automatic start; 3+ unidirectional loops; invisible full-car reset; correct wheel rolling and track alignment",
+    "open queues a smooth station stop; doors only open at rest; closing resumes automatic service; widened platform; five linked colour themes",
+    "partial entry clipping, ticket, night, cutaway, labels, turntable, hidden-page pause/resume, mobile, ten-place navigation and reduced motion"
+  ],
+  "consoleErrors": []
+}

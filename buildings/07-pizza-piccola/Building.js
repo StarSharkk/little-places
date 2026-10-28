@@ -14,6 +14,7 @@ export const ROOF_Y = G.TOP + 0.19;                     // top of the roof membr
 export function rng(seed) {
   return () => { seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
+const upright = (o) => ((o.rotation.x = Math.PI / 2), o);   // turn before inking: the ink copy takes the transform it has
 const inked = (mesh, m) => (hull(mesh, m.hull), mesh);
 
 // Scattered brick faces on a plastered wall (local +z outward, face at z = t), avoiding openings.
@@ -192,7 +193,7 @@ export function Roof(root, m, atlas, plant) {
   // air unit with a fan grille
   const ac = group(g, 'Air unit', [0.55, ROOF_Y, -1.25]); ac.rotation.y = 0.1;
   plate(ac, 0.95, 0.62, 0.62, 0.05, m.steel, [0, 0.31, 0]);
-  inked(cylinder(ac, 0.22, 0.22, 0.02, m.steelDark, [0.15, 0.31, 0.315], true, 28), m).rotation.x = Math.PI / 2;
+  inked(upright(cylinder(ac, 0.22, 0.22, 0.02, m.steelDark, [0.15, 0.31, 0.315], true, 28)), m);
   for (let i = -2; i <= 2; i++) box(ac, 0.42, 0.012, 0.006, m.steel, [0.15, 0.31 + i * 0.07, 0.33], false);
   for (let i = 0; i < 5; i++) box(ac, 0.012, 0.42, 0.006, m.steelDark, [-0.36 + i * 0.03, 0.33, 0.315], false);
   for (const x of [-0.35, 0.35]) box(ac, 0.08, 0.06, 0.62, m.steelDark, [x, 0.03, 0]);

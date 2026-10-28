@@ -1,3 +1,5 @@
+import {closeBrowser} from './close-browser.mjs';
+let checksPassed=false;
 // The Little Bookshop inside the collection. Start the dev server, then `npm run check:books`.
 import {chromium} from 'playwright';
 import {writeFile} from 'node:fs/promises';
@@ -68,14 +70,15 @@ try{
  await page.locator('#labels-button').click();await page.waitForTimeout(400);
  assert(await page.locator('#labels .part-label:not([hidden])').count()===6,'Six labels expected');await snap('books-labels');await page.locator('#labels-button').click();
  await page.locator('#tab-collection').click();await page.waitForTimeout(400);
- assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===7),'Overview must show 7 places');
+ assert(await page.evaluate(()=>Object.values(__series.items).filter(i=>i.wrapper.visible).length===10),'Overview must show 10 places');
  for(let i=0;i<8&&!(await page.locator('[data-focus="books"]').isVisible());i++){await page.locator('#gallery-next').click();await page.waitForTimeout(450);}
- await page.locator('[data-focus="books"]').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='books'),'Caption navigation failed');
- checks.push('labels, 7-place overview, caption navigation');
+ await page.locator('#tab-books').click();await page.waitForTimeout(200);assert(await page.evaluate(()=>__series.state.active==='books'),'Tab navigation failed');
+ checks.push('labels, 10-place overview, tab navigation');
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth===innerWidth),'Mobile overflow');await snap('books-mobile');
  checks.push('390 px without overflow');
  assert(errors.length===0,errors.join('\n'));
  const report={passed:true,checkedAt:new Date().toISOString(),checks,consoleErrors:errors};
  await writeFile(out('books-verification.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));
-}finally{await browser.close();}
+ checksPassed=true;
+}catch(error){console.error(error);throw error;}finally{await closeBrowser(browser,checksPassed);}

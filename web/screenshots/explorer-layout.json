@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "1440x813: all ten scenes, all controls visible, complete model bounds",
+    "1440x900: all ten scenes, all controls visible, complete model bounds",
+    "1280x720: all ten scenes, all controls visible, complete model bounds",
+    "1920x1080: all ten scenes, all controls visible, complete model bounds"
+  ],
+  "consoleErrors": []
+}

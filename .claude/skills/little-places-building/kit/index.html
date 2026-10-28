@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Little Places</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<header class="bar"><h1 id="title">Little Places</h1><select id="place" aria-label="Choose a place" hidden></select></header>
+<div class="bar" id="actions" role="group" aria-label="Try it"><span class="row-label">TRY IT</span></div>
+<main id="stage" aria-label="Drag to turn the building, scroll to zoom"><div id="labels" aria-hidden="true"></div><div id="tooltip" role="status" hidden></div><div id="loading">Setting out the little place…</div></main>
+<div class="bar tools">
+  <div class="group"><button id="labels-button" class="pill" aria-pressed="false">Labels</button><button id="turntable" class="pill" aria-pressed="false">Turntable ↻</button><button id="night" class="pill" aria-pressed="false">Night ☾</button></div>
+  <div class="group zoom"><button id="zoom-out" class="pill" aria-label="Zoom out">−</button><button id="zoom-in" class="pill" aria-label="Zoom in">+</button></div>
+</div>
+<div class="bar tools">
+  <div class="group"><span class="row-label">COLOUR</span><span id="swatches"></span><span id="swatch-name" class="note"></span></div>
+  <div class="group"><span class="row-label">VIEW</span><button class="pill" data-view="iso">Default</button><button class="pill" data-view="front">Front</button><button class="pill" data-view="side">Side</button><button class="pill" data-view="back">Back</button><button class="pill" data-view="top">Top</button></div>
+</div>
+<script type="module" src="/src/viewer.js"></script>
+</body>
+</html>

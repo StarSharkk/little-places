@@ -18,6 +18,7 @@ export function floorShadow(root, shadowMaterial, layers, minHeight = 0.5) {
   const out = [], box = new THREE.Box3(), v = new THREE.Vector3();
   root.traverse(o => {
     if (!o.isMesh || o.isLineSegments2 || o.material.transparent || o.material.map || !o.visible) return;
+    for (let p = o; p; p = p.parent) if (p.userData.live || p.userData.noShadow) return;   // particles, live parts and interiors cast no shadow
     const type = o.geometry.type; if (type !== 'BoxGeometry' && type !== 'ExtrudeGeometry') return;
     box.setFromObject(o); if (box.max.y < minHeight) return;
     const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry, src = g.getAttribute('position');

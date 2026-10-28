@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-28T10:20:42.563Z",
+  "checks": [
+    "#laundry deep link, controls, butter yellow default, budget (119831 triangles, 14335 outline segments)",
+    "1 chalkboard A-frame(s) standing on the ground as a Λ",
+    "every street and roof prop rests on the paving, the roof deck or the prop below it",
+    "default, front, right, back and rooftop views",
+    "glass double door: button and click, both leaves on their own hinges",
+    "start/stop washing: drum spins (frame-rate independent: -14.84 vs -14.71 rad at 30/120 fps), display and light switch, porthole locked while running, animation stops and the page idles",
+    "porthole: button and click on its side hinge; starting a wash closes it",
+    "vending: button and click, bottle stays inside and moves smoothly, flap opens with the pickup light, resets and runs again",
+    "see-through interior",
+    "five colour schemes (building only)",
+    "labels, 10-place overview with paging, tab navigation",
+    "390 px without overflow"
+  ],
+  "consoleErrors": []
+}
