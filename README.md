@@ -1,6 +1,6 @@
-<p align="center"><img src="web/public/logo.svg" alt="Little Places — a building collection" width="320"></p>
-
 # Little Places · 建筑小集
+
+English · [中文](README.zh-CN.md)
 
 **Small places. Everyday stories.** — a building collection by zili design.
 
@@ -30,6 +30,10 @@ Every place also has five colour schemes, Night mode, labels and a turntable.
 - **The collection** — the ten places on a slow tour. Drag any one to turn them all together; rest the pointer on a place to pause the tour and bring it a little closer; click it to look closer. The wheel always scrolls the page — zoom with the − / + buttons. Colours, Night, Labels, Turntable and the Default / Front / Side views work across the whole collection or on one place (`/#cafe` … `/#tram`).
 - **A closer look** (below the collection, `/#explore/<id>`) — one place at a time in a large display case: its own interactions, a Details list that turns the camera to each detail, See-through, Night, Turntable, Fullscreen and paging. Notes in [web/EXPLORER.md](web/EXPLORER.md).
 - **Get the skill** (`/skill.html`) — how to install the Claude skill behind the series, with four places turning by themselves.
+
+![A closer look: the Little Post Office in the display case](web/screenshots/explorer-post.png)
+
+![Get the skill](web/screenshots/skill-page.png)
 
 ## The skill
 

@@ -51,7 +51,9 @@ export function createExplorer({ collectionItems, reducedMotion }) {
  function focusDetail(i){if(!item)return;if(state.focus===i){reset();return;}const [,point]=item.labels[i];scene.updateMatrixWorld(true);const to=item.model.group.localToWorld(typeof point==='function'?point():new THREE.Vector3(...point));state.focus=i;state.turntable=false;controls.autoRotate=false;zoomGoal=Math.max(zoomGoal,2.4);focusAnim={from:controls.target.clone(),to,t:0};if(reducedMotion.matches)stepFocus(1);syncDetails();syncCommon();invalidate();}
  function stepFocus(dt){if(!focusAnim)return false;focusAnim.t=Math.min(1,focusAnim.t+dt/.65);const t=focusAnim.t,k=t*t*(3-2*t),offset=camera.position.clone().sub(controls.target);controls.target.lerpVectors(focusAnim.from,focusAnim.to,k);camera.position.copy(controls.target).add(offset);if(t>=1)focusAnim=null;return true;}
  function syncDetails(){for(const b of section.querySelectorAll('[data-explorer-detail]'))b.setAttribute('aria-pressed',String(Number(b.dataset.explorerDetail)===state.focus));}
- function load(){
+ // A place that fails to set out (a lost WebGL context, a reload mid-way) says so, and tries again when it is shown or clicked.
+ function load(){const note=$('.explorer-loading');try{loadPlace();note.classList.remove('is-error');}catch(error){console.error('Explorer: could not load',state.selected,error);item=null;adapter=null;note.hidden=false;note.classList.add('is-error');note.textContent='This place didn’t set out. Click to try again ↻';}}
+ function loadPlace(){
   init();release();item=createCollection({only:state.selected})[state.selected];const m=item.model;
   scene.add(item.wrapper);scene.updateMatrixWorld(true);
   let box=m.footprint?new THREE.Box3(new THREE.Vector3(...m.footprint.min),new THREE.Vector3(...m.footprint.max)):new THREE.Box3().setFromObject(item.wrapper);
@@ -98,13 +100,14 @@ export function createExplorer({ collectionItems, reducedMotion }) {
  for(const b of section.querySelectorAll('[data-explore]')){b.addEventListener('pointerenter',()=>showPreview(b));b.addEventListener('pointerleave',hidePreview);b.addEventListener('focus',()=>showPreview(b));b.addEventListener('blur',hidePreview);}
  window.addEventListener('scroll',hidePreview,{passive:true});window.addEventListener('resize',hidePreview);
  new ResizeObserver(resize).observe(host);
- new IntersectionObserver(entries=>{state.visible=entries[0].isIntersecting;if(state.visible&&!renderer)load();invalidate();},{rootMargin:'0px'}).observe(display);
+ new IntersectionObserver(entries=>{state.visible=entries[0].isIntersecting;if(state.visible&&!item)load();invalidate();},{rootMargin:'0px'}).observe(display);
+ $('.explorer-loading').addEventListener('click',()=>{if(!item)load();});
  function route(){const id=location.hash.match(/^#explore\/([a-z]+)$/)?.[1];if(buildingCatalog.some(b=>b.id===id))select(id,{scroll:true,writeHash:false});}
  window.addEventListener('hashchange',route);
  select('cafe',{writeHash:false});if(location.hash.startsWith('#explore/'))requestAnimationFrame(route);
  reducedMotion.addEventListener('change',()=>{if(controls)controls.autoRotate=state.turntable&&!reducedMotion.matches;if(reducedMotion.matches&&item?.id==='tram')item.model.settle();invalidate();});
  function frame(dt){
-  if(!state.visible||document.hidden||!renderer||!item)return;elapsed+=dt;
+  if(!state.visible||document.hidden||!renderer||!item||!adapter)return;elapsed+=dt;
   const focusing=stepFocus(dt),changed=controls.update(dt),moving=adapter.step(dt,elapsed),z=Math.abs(camera.zoom-zoomGoal)>.001,n=Math.abs(nightAmount-Number(state.night))>.001;
   syncActions();if(!dirty&&!focusing&&!changed&&!moving&&!z&&!n&&!(state.turntable&&!reducedMotion.matches))return;
   dirty=false;

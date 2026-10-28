@@ -69,3 +69,5 @@
  .explorer-detail{flex-shrink:0;font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.explorer-detail{transition:none}}
+
+.explorer-loading.is-error{pointer-events:auto;cursor:pointer;color:#A8533B;text-decoration:underline;text-underline-offset:3px}
